@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="generate_list_choices">
+        <item>Full Body</item>
+        <item>Upper Body</item>
+        <item>Lower Body</item>
+        <item>Arms</item>
+        <item>Chest</item>
+        <item>Back</item>
+        <item>Legs</item>
+    </string-array>
+
+    <string-array name="generate_time">
+        <item>10 Minutes</item>
+        <item>15 Minutes</item>
+        <item>20 Minutes</item>
+        <item>30 Minutes</item>
+        <item>45 Minutes</item>
+        <item>1 Hour</item>
+    </string-array>
+</resources>
