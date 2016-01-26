@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity
             fragmentClass = RandomWorkout.class;
 
         } else if (id == R.id.nav_search) {
-
+            fragmentClass = SearchWorkout.class;
         } else if (id == R.id.nav_home) {
 
         } else if (id == R.id.nav_share) {
