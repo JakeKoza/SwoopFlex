@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity
             fragmentClass = GenerateWorkout.class;
 
         } else if (id == R.id.nav_random) {
-
+            fragmentClass = RandomWorkout.class;
 
         } else if (id == R.id.nav_search) {
 

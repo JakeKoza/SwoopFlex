@@ -5,4 +5,12 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="dummyString">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sem
+        ligula, imperdiet ut velit eu, malesuada luctus lacus. Aliquam erat volutpat. Suspendisse
+        tristique risus ac iaculis tincidunt. Morbi quis felis dictum, fermentum ante in, porta urna.
+        Donec ac mi vitae libero viverra ultricies in at quam. Pellentesque egestas, ex ac porta
+        consequat, turpis sem blandit dolor, sit amet consectetur mi metus bibendum velit. Cras
+        vestibulum efficitur condimentum. </string>
+
+    <string name="workout"><a href="http://www.youtube.com">Youtube</a></string>
 </resources>
