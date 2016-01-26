@@ -1,5 +1,6 @@
 package com.unf.swoopflex;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -87,13 +88,13 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_search) {
             fragmentClass = SearchWorkout.class;
         } else if (id == R.id.nav_home) {
-
+            fragmentClass = MainActivity.class;
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_scan) {
 
         }else if (id == R.id.nav_tracking) {
-
+            fragmentClass = Tracking.class;
         }
 
         try {

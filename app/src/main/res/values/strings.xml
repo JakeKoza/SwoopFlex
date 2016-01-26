@@ -13,4 +13,5 @@
         vestibulum efficitur condimentum. </string>
 
     <string name="workout"><a href="http://www.youtube.com">Youtube</a></string>
+    <string name="dataSeries">0=1;1=2;2=1;3=0</string>
 </resources>
