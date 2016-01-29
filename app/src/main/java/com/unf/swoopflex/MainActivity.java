@@ -1,9 +1,13 @@
 package com.unf.swoopflex;
 
-import android.os.Bundle;
-import android.support.design.widget.NavigationView;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
+import android.view.View;
+import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -11,8 +15,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-
-
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -81,18 +83,18 @@ public class MainActivity extends AppCompatActivity
             fragmentClass = GenerateWorkout.class;
 
         } else if (id == R.id.nav_random) {
-
+            fragmentClass = RandomWorkout.class;
 
         } else if (id == R.id.nav_search) {
-
+            fragmentClass = SearchWorkout.class;
         } else if (id == R.id.nav_home) {
-
+            fragmentClass = MainActivity.class;
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_scan) {
 
         }else if (id == R.id.nav_tracking) {
-
+            fragmentClass = Tracking.class;
         }
 
         try {

@@ -8,6 +8,7 @@
         <item>Chest</item>
         <item>Back</item>
         <item>Legs</item>
+        <item>Abs</item>
     </string-array>
 
     <string-array name="generate_time">
@@ -18,4 +19,5 @@
         <item>45 Minutes</item>
         <item>1 Hour</item>
     </string-array>
+
 </resources>
