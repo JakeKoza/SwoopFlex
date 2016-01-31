@@ -34,6 +34,7 @@
         </FrameLayout>
     </LinearLayout>
 
+
     <!-- The navigation drawer that comes from the left -->
     <!-- Note that `android:layout_gravity` needs to be set to 'start' -->
     <android.support.design.widget.NavigationView
