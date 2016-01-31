@@ -24,7 +24,14 @@
         <FrameLayout
             android:id="@+id/flContent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent" >
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="left|top"></LinearLayout>
+        </FrameLayout>
     </LinearLayout>
 
     <!-- The navigation drawer that comes from the left -->
