@@ -81,18 +81,16 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_generate) {
             fragmentClass = GenerateWorkout.class;
-
         } else if (id == R.id.nav_random) {
             fragmentClass = RandomWorkout.class;
-
         } else if (id == R.id.nav_search) {
             fragmentClass = SearchWorkout.class;
         } else if (id == R.id.nav_home) {
             fragmentClass = MainActivity.class;
         } else if (id == R.id.nav_share) {
-
+            fragmentClass = Share.class;
         } else if (id == R.id.nav_scan) {
-
+            fragmentClass = QRCode.class;
         }else if (id == R.id.nav_tracking) {
             fragmentClass = Tracking.class;
         }
