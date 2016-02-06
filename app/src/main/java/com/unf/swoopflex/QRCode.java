@@ -10,12 +10,11 @@ import android.view.ViewGroup;
 /**
  * Created by Jake on 1/21/16.
  */
-public class RandomWorkout extends Fragment {
-
+public class QRCode extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.display_workout, container, false);
+        return inflater.inflate(R.layout.qr_code, container, false);
     }
 }
