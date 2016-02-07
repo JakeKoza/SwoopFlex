@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity
             fragmentClass = HomeWorkout.class;
 
         } else if (id == R.id.nav_share) {
-
+            fragmentClass = Share.class;
 
         } else if (id == R.id.nav_scan) {
             fragmentClass = ScanWorkout.class;
