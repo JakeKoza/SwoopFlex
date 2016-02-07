@@ -54,7 +54,7 @@
         <Spinner
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:id="@+id/spnWeight"
+            android:id="@+id/spnInch"
             android:entries="@array/inches" />
     </LinearLayout>
 
@@ -99,7 +99,8 @@
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:id="@+id/radGender">
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -120,7 +121,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save"
-        android:id="@+id/btnSubmit"
+        android:id="@+id/btnSaveInfo"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="6dp"/>
 
