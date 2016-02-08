@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp">
 
     <TextView
         android:layout_width="wrap_content"
@@ -26,11 +27,33 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"/>
 
+
     <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="16dp">
 
+        <Button
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:id="@+id/btnGooglePlus"
+            android:background="@drawable/google"/>
 
+        <Button
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:id="@+id/btnTwitter"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/twitter_circle" />
+
+        <Button
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:id="@+id/btnFacebook"
+            android:background="@drawable/facebook" />
     </LinearLayout>
 
 </LinearLayout>
