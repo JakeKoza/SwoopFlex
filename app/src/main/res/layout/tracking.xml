@@ -6,6 +6,24 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:text="Your Calculated BMI: "/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvBMI"
+            android:text="TEST"/>
+
+    </LinearLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,7 +57,7 @@
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:id="@+id/btnGooglePlus"
-            android:background="@drawable/google"/>
+            android:background="@drawable/google_selector"/>
 
         <Button
             android:layout_width="56dp"
@@ -47,13 +65,13 @@
             android:id="@+id/btnTwitter"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:background="@drawable/twitter_circle" />
+            android:background="@drawable/twitter_selector" />
 
         <Button
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:id="@+id/btnFacebook"
-            android:background="@drawable/facebook" />
+            android:background="@drawable/facebook_selector" />
     </LinearLayout>
 
 </LinearLayout>
