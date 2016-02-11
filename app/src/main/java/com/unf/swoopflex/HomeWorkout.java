@@ -2,6 +2,7 @@ package com.unf.swoopflex;
 
 
 import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -26,6 +28,7 @@ public class HomeWorkout extends Fragment{
     Spinner Age;
     RadioGroup Gender;
     int user_height, user_feet, user_inch, user_weight, user_age, user_gender;
+    double temp_height, temp_weight;
     double bmi;
 
 
@@ -41,6 +44,32 @@ public class HomeWorkout extends Fragment{
         Age = (Spinner) view.findViewById(R.id.spnAge);
         Gender = (RadioGroup) view.findViewById(R.id.radGender);
         btn = (Button) view.findViewById(R.id.btnSaveInfo);
+
+        ctx = getActivity().getApplicationContext();
+        SQLiteDB DB = new SQLiteDB(ctx);
+        if(DB.SQLiteCheckDB(DB)) {
+            Cursor CR = DB.SQLiteUserData(DB);
+            CR.moveToFirst();
+
+
+            user_height = CR.getInt(0);
+            user_inch = user_height%12;
+            user_feet = (user_height-user_inch)/12;
+            user_weight = CR.getInt(1);
+            user_age = CR.getInt(2);
+            user_gender = CR.getInt(3);
+
+            Height_Feet.setSelection(user_feet-3);
+            Height_Inch.setSelection(user_inch);
+            Weight.setText(String.valueOf(user_weight));
+            Age.setSelection(user_age - 16);
+            if(user_gender==1) {
+                ((RadioButton) Gender.findViewById(R.id.radioButtonMale)).setChecked(true);
+            }else {
+                ((RadioButton) Gender.findViewById(R.id.radioButtonFemale)).setChecked(true);
+            }
+        }
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,7 +90,13 @@ public class HomeWorkout extends Fragment{
                     user_gender = 1;
                 }
                 //calculate bmi
-                bmi = 1.5;
+                temp_weight = user_weight * .45;
+
+                temp_height = user_height * .025;
+
+                temp_height = temp_height * temp_height;
+
+                bmi = temp_weight/temp_height;
 
                 ctx = getActivity().getApplicationContext();
                 SQLiteDB DB = new SQLiteDB(ctx);

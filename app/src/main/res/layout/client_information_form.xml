@@ -70,6 +70,7 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
+        android:text="125"
         android:id="@+id/nmbrWeight"
         android:paddingBottom="6dp" />
 

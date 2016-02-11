@@ -2,6 +2,7 @@ package com.unf.swoopflex;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -43,8 +44,48 @@ public class SQLiteDB extends SQLiteOpenHelper {
         cv.put(SQLiteData.SQLiteUserTableInfo.USER_GENDER, gender);
         cv.put(SQLiteData.SQLiteUserTableInfo.USER_BMI, bmi);
 
-        long k = SQ.insert(SQLiteData.SQLiteUserTableInfo.TABLE_NAME, null, cv);
-        Log.d("SQLiteDB", "Info Inserted");
+        if(!(SQLiteCheckDB(db))) {
+            long k = SQ.insert(SQLiteData.SQLiteUserTableInfo.TABLE_NAME, null, cv);
+            Log.d("SQLiteDB", "Info Inserted");
+        }else{
+            long k = SQ.update(SQLiteData.SQLiteUserTableInfo.TABLE_NAME, cv, "rowid=1", null);
+            Log.d("SQLiteDB", "Info Updated");
+        }
 
+    }
+
+    public Cursor SQLiteUserData(SQLiteDB db){
+
+        SQLiteDatabase SQ = db.getReadableDatabase();
+
+        String[] columns = {SQLiteData.SQLiteUserTableInfo.USER_HEIGHT, SQLiteData.SQLiteUserTableInfo.USER_WEIGHT, SQLiteData.SQLiteUserTableInfo.USER_AGE,
+                SQLiteData.SQLiteUserTableInfo.USER_GENDER};
+                            //Table name, columns, selectionWhere, selectionArg, groupby, having, orderby
+        Cursor CR = SQ.query(SQLiteData.SQLiteUserTableInfo.TABLE_NAME, columns, null, null, null, null, null);
+
+        return CR;
+    }
+
+    public Cursor SQLiteUserGetBMI(SQLiteDB db){
+
+        SQLiteDatabase SQ = db.getReadableDatabase();
+
+        String[] columns = {SQLiteData.SQLiteUserTableInfo.USER_BMI};
+
+        Cursor CR = SQ.query(SQLiteData.SQLiteUserTableInfo.TABLE_NAME, columns, null, null, null, null, null);
+
+        return CR;
+    }
+
+    public boolean SQLiteCheckDB(SQLiteDB db){
+
+        SQLiteDatabase SQ = db.getReadableDatabase();
+        String query = "SELECT * from " + SQLiteData.SQLiteUserTableInfo.TABLE_NAME;
+        Cursor cr = SQ.rawQuery(query, null);
+        if(cr.getCount()==1){
+            return true;
+        }else{
+        return false;
+        }
     }
 }
