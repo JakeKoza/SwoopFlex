@@ -2,6 +2,7 @@ package com.unf.swoopflex;
 
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -9,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
@@ -24,9 +26,10 @@ import java.util.logging.LogRecord;
 /**
  * Created by Jake on 1/21/16.
  */
-public class Tracking extends Fragment {
+public class Tracking extends Fragment implements View.OnClickListener{
     private LineGraphSeries<DataPoint> mSeries1;
     private double graph2LastValue = 5d;
+    Button btnGoogle, btnFacebook, btnTwitter;
 
 
 
@@ -52,4 +55,8 @@ public class Tracking extends Fragment {
         return view;
     }
 
+    @Override
+    public void onClick(View v) {
+
+    }
 }
