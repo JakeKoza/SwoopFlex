@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity
             fragmentClass = Share.class;
 
         } else if (id == R.id.nav_scan) {
-            fragmentClass = ScanWorkout.class;
+            fragmentClass = QRCode.class;
 
         }else if (id == R.id.nav_tracking) {
             fragmentClass = Tracking.class;
