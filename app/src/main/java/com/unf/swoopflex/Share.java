@@ -20,8 +20,8 @@ public class Share extends Fragment {
     EditText qText = null;
     TextView qView = null;
     String qData = "";
-    String[][] dataArray = null;
-    HttpConnect http = new HttpConnect();
+
+    public Share(){}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,7 +47,10 @@ public class Share extends Fragment {
                 return view;
     }
 
-    public class JsonTask extends AsyncTask<String,String,String> {
+    private class JsonTask extends AsyncTask<String,String,String> {
+
+        HttpConnect http = new HttpConnect();
+        String[][] dataArray = null;
 
         @Override
         protected String doInBackground(String... params) {
@@ -61,7 +64,7 @@ public class Share extends Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            dataArray = http.jsonStringArrayParser(result);
+            dataArray = http.jsonWorkoutStringArrayParser(result);
 
             qView.setText(String.valueOf(dataArray[0][4]));
 

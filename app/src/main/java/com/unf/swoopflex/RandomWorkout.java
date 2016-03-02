@@ -14,8 +14,6 @@ import android.widget.TextView;
  */
 public class RandomWorkout extends Fragment {
 
-    String[][] dataArray = null;
-    HttpConnect http = new HttpConnect();
     TextView work_Name = null;
     TextView work_Descrip = null;
 
@@ -30,11 +28,14 @@ public class RandomWorkout extends Fragment {
         work_Descrip = (TextView)view.findViewById(R.id.random_description);
 
         new JsonTask().execute("test");
-        
+
         return view;
     }
 
     public class JsonTask extends AsyncTask<String,String,String> {
+
+        HttpConnect http = new HttpConnect();
+        String[][] dataArray = null;
 
         @Override
         protected String doInBackground(String... params) {
@@ -49,7 +50,7 @@ public class RandomWorkout extends Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            dataArray = http.jsonStringArrayParser(result);
+            dataArray = http.jsonWorkoutStringArrayParser(result);
 
             if(dataArray != null) {
                 work_Name.setText(String.valueOf(dataArray[0][1]));
