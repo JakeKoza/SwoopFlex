@@ -9,6 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.unf.swoopflex.models.WorkoutModel;
+
+import java.util.List;
+
 /**
  * Created by Jake on 1/21/16.
  */
@@ -16,18 +20,19 @@ public class RandomWorkout extends Fragment {
 
     TextView work_Name = null;
     TextView work_Descrip = null;
-
+    Globals g = Globals.getInstance();
+    public List<WorkoutModel> workoutModelList = g.getWorkoutModelList();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.random_workout, container, false);
+        View view = inflater.inflate(R.layout.display_workout, container, false);
 
-        work_Name = (TextView)view.findViewById(R.id.random_equipment);
+        work_Name = (TextView)view.findViewById(R.id.random_workout);
         work_Descrip = (TextView)view.findViewById(R.id.random_description);
 
-        new JsonTask().execute("test");
+        new JsonTask().execute();
 
         return view;
     }
@@ -50,12 +55,13 @@ public class RandomWorkout extends Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            dataArray = http.jsonWorkoutStringArrayParser(result);
+            workoutModelList = http.modelWorkoutArrayParser(result);
 
-            if(dataArray != null) {
-                work_Name.setText(String.valueOf(dataArray[0][1]));
-                work_Descrip.setText(String.valueOf(dataArray[0][4]));
-            }
+            g.setWorkoutModelList(workoutModelList);
+
+                work_Name.setText(workoutModelList.get(0).getWork_Name());
+                work_Descrip.setText(workoutModelList.get(0).getWork_Name());
+
         }
 
     }

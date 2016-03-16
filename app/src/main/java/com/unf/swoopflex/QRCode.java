@@ -2,6 +2,7 @@ package com.unf.swoopflex;
 
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import com.google.zxing.integration.android.IntentResult;
 public class QRCode extends Fragment {
 
     private String toast;
+    String id;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -48,14 +50,37 @@ public class QRCode extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if(result != null) {
-            if(result.getContents() == null) {
-                toast = "Cancelled from fragment";
-            } else {
-                toast = "Scanned from fragment: " + result.getContents();
-            }
 
-            // At this point we may or may not have a reference to the activity
-            displayToast();
+            if(result.getContents() == null){
+                toast = "Scan Cancelled";
+                displayToast();
+            }else {
+                id = result.getContents();
+                new JsonTask().execute();
+            }
         }
+    }
+
+    public class JsonTask extends AsyncTask<String,String,String> {
+
+        HttpConnect http = new HttpConnect();
+        String[][] dataArray = null;
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            String queryData = null;
+            queryData = http.GetWorkoutByEquipId(id);
+
+            return queryData;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
+        }
+
     }
 }

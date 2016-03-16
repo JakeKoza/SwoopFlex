@@ -15,10 +15,10 @@
 
 
 
-    <ListView
-        android:id="@+id/listView"
+    <Spinner
+        android:id="@+id/workTypeSpinner"
         android:layout_width="match_parent"
-        android:layout_height="236dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="10dp"
         android:entries="@array/generate_list_choices"
@@ -31,9 +31,10 @@
         android:textSize="16dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
-        android:text="Select a Time" />
+        android:text="Select Time in Minutes" />
 
     <Spinner
+        android:id="@+id/workTimeSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

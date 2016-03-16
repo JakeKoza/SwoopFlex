@@ -2,6 +2,8 @@ package com.unf.swoopflex;
 
 import android.util.Log;
 
+import com.unf.swoopflex.models.WorkoutModel;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,6 +16,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Ricky on 2/28/2016.
@@ -133,13 +137,68 @@ public class HttpConnect {
         return null;
     }
 
+    /**Used for Generate Workout Routine
+     *
+     *
+     */
     public String GetWorkoutRoutine(String workType, String workTime){
 
         try{
             String qData = URLEncoder.encode("work_Type", "UTF-8") + "=" + URLEncoder.encode(workType, "UTF-8");
             qData += "&" + URLEncoder.encode("work_Time", "UTF-8") + "=" + URLEncoder.encode(workTime, "UTF-8");
 
-            String UrlPath = "http://73.35.6.103/GetWrokoutRoutine.php" + "?" + qData;
+            String UrlPath = "http://73.35.6.103/genWorkoutRoutine.php" + "?" + qData;
+
+            URL url = new URL(UrlPath);
+            HttpCon = (HttpURLConnection) url.openConnection();
+
+            HttpCon.connect();
+
+            InputStream stream = HttpCon.getInputStream();
+
+            reader = new BufferedReader(new InputStreamReader(stream));
+
+            StringBuffer buffer = new StringBuffer();
+
+            String line = "";
+
+            while((line = reader.readLine()) != null){
+
+                buffer.append(line);
+            }
+            Log.d("MySql", "PHP GetWorkoutRoutine Return Success");
+
+            return buffer.toString();
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            Log.d("MySql", "Error MalformedURL");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d("MySql", "Error IO");
+        }finally{
+            if(reader != null){
+                HttpCon.disconnect();
+            }
+            if(reader != null){
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public String searchWorkout(String workType, String workTime){
+
+        try{
+            String qData = URLEncoder.encode("work_Type", "UTF-8") + "=" + URLEncoder.encode(workType, "UTF-8");
+            qData += "&" + URLEncoder.encode("work_Time", "UTF-8") + "=" + URLEncoder.encode(workTime, "UTF-8");
+
+            String UrlPath = "http://73.35.6.103/searchWorkout.php" + "?" + qData;
 
             URL url = new URL(UrlPath);
             HttpCon = (HttpURLConnection) url.openConnection();
@@ -214,4 +273,39 @@ public class HttpConnect {
 
         return null;
     }
+
+    public List<WorkoutModel> modelWorkoutArrayParser(String result){
+
+        try {
+
+            JSONArray parentArray = new JSONArray(result);
+
+            List<WorkoutModel> workoutModelList = new ArrayList<>();
+
+            for(int i = 0; i < parentArray.length(); i++) {
+
+                JSONObject finalObject = parentArray.getJSONObject(i);
+
+                WorkoutModel workoutModel = new WorkoutModel();
+
+                workoutModel.setWork_ID(finalObject.getString("work_ID"));
+                workoutModel.setWork_Name(finalObject.getString("work_Name"));
+                workoutModel.setWork_Type(finalObject.getString("work_Type"));
+                workoutModel.setWork_Time(finalObject.getString("work_Time"));
+                workoutModel.setWork_Descrip(finalObject.getString("work_Descrip"));
+                workoutModel.setWork_Video(finalObject.getString("work_Video"));
+                workoutModel.setEquip_ID(finalObject.getString("equip_ID"));
+                workoutModelList.add(workoutModel);
+            }
+
+            return workoutModelList;
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
 }
