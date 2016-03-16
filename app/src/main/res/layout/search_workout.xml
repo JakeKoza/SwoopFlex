@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="10dp"
-        android:entries="@array/generate_list_choices"
+        android:entries="@array/search_list_choices"
         android:clickable="true" />
 
     <TextView

@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="generate_list_choices">
-        <item>Full Body</item>
-        <item>Upper Body</item>
-        <item>Lower Body</item>
-        <item>Arms</item>
-        <item>Chest</item>
-        <item>Back</item>
-        <item>Legs</item>
         <item>Abs</item>
+        <item>Arms</item>
+        <item>Back</item>
+        <item>Chest</item>
+        <item>Full Body</item>
+        <item>Legs</item>
+        <item>Lower Body</item>
+        <item>Upper Body</item>
+    </string-array>
+
+    <string-array name="search_list_choices">
+        <item>Any</item>
+        <item>Abs</item>
+        <item>Arms</item>
+        <item>Back</item>
+        <item>Chest</item>
+        <item>Full Body</item>
+        <item>Legs</item>
+        <item>Lower Body</item>
+        <item>Upper Body</item>
     </string-array>
 
     <string-array name="generate_time">
@@ -29,6 +41,7 @@
         <item>5</item>
         <item>10</item>
         <item>15</item>
+        <item>Any</item>
     </string-array>
 
     <string-array name="age">
