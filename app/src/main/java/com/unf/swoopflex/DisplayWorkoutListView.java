@@ -13,6 +13,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.unf.swoopflex.models.WorkoutModel;
 
 import java.util.List;
@@ -33,6 +36,12 @@ public class DisplayWorkoutListView extends Fragment {
         View view = inflater.inflate(R.layout.workout_listview, container, false);
 
         workoutListView = (ListView)view.findViewById(R.id.workout_listview);
+
+        // Create default options which will be used for every
+        //  displayImage(...) call if no options will be passed to this method
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).build();
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getContext()).defaultDisplayImageOptions(defaultOptions).build();
+        ImageLoader.getInstance().init(config); // Do it on Application start
 
         final WorkoutAdapter adapter = new WorkoutAdapter(getContext(), R.layout.workout_listview_display, workoutList);
 
@@ -109,6 +118,10 @@ public class DisplayWorkoutListView extends Fragment {
             equipImage = (ImageView)convertView.findViewById(R.id.dis_workimage);
             workName = (TextView)convertView.findViewById(R.id.dis_workname);
 
+            // Then later, when you want to display image
+            //ImageLoader.getInstance().displayImage("http://73.35.6.103/images/"+workoutArray.get(position).getEquip_ID()+".jpg", equipImage); // Default options will be used
+            //Place Holder until we get more images
+            ImageLoader.getInstance().displayImage("http://73.35.6.103/images/1.jpg", equipImage); // Default options will be used
 
             workName.setText(workoutArray.get(position).getWork_Name());
 

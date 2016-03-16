@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.unf.swoopflex.models.WorkoutModel;
@@ -18,6 +19,7 @@ public class DisplayWorkout extends Fragment {
 
     TextView work_Name = null;
     TextView work_Descrip = null;
+    ImageView equipImage;
     Globals g = Globals.getInstance();
     public List<WorkoutModel> workoutList = g.getWorkoutModelList();
 
@@ -29,6 +31,12 @@ public class DisplayWorkout extends Fragment {
 
         work_Name = (TextView)view.findViewById(R.id.random_workout);
         work_Descrip = (TextView)view.findViewById(R.id.random_description);
+        equipImage = (ImageView)view.findViewById(R.id.dis_workimage);
+
+
+        //ImageLoader.getInstance().displayImage("http://73.35.6.103/images/" + workoutList.get(g.getPosition()).getEquip_ID() + ".jpg", equipImage); // Default options will be used
+        //ImageLoader.getInstance().displayImage("http://73.35.6.103/images/1.jpg", equipImage); // Default options will be used
+
 
         work_Name.setText(workoutList.get(g.getPosition()).getWork_Name());
         work_Descrip.setText(workoutList.get(g.getPosition()).getWork_Name());
