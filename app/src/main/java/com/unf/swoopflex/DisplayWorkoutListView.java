@@ -13,9 +13,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.unf.swoopflex.models.WorkoutModel;
 
 import java.util.List;
@@ -37,17 +35,13 @@ public class DisplayWorkoutListView extends Fragment {
 
         workoutListView = (ListView)view.findViewById(R.id.workout_listview);
 
-        // Create default options which will be used for every
-        //  displayImage(...) call if no options will be passed to this method
-        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).build();
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getContext()).defaultDisplayImageOptions(defaultOptions).build();
-        ImageLoader.getInstance().init(config); // Do it on Application start
 
         final WorkoutAdapter adapter = new WorkoutAdapter(getContext(), R.layout.workout_listview_display, workoutList);
 
         workoutListView.setAdapter(adapter);
 
         Log.d("workoutListView", "return Success");
+
 
         workoutListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

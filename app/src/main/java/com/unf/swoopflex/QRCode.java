@@ -79,7 +79,7 @@ public class QRCode extends Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
+            //Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
         }
 
     }

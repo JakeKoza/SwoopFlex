@@ -7,8 +7,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.unf.swoopflex.models.WorkoutModel;
 
 import java.util.List;
@@ -20,6 +22,7 @@ public class RandomWorkout extends Fragment {
 
     TextView work_Name = null;
     TextView work_Descrip = null;
+    ImageView equipImage;
     Globals g = Globals.getInstance();
     public List<WorkoutModel> workoutModelList = g.getWorkoutModelList();
 
@@ -31,6 +34,7 @@ public class RandomWorkout extends Fragment {
 
         work_Name = (TextView)view.findViewById(R.id.random_workout);
         work_Descrip = (TextView)view.findViewById(R.id.random_description);
+        equipImage = (ImageView)view.findViewById(R.id.dis_workimage);
 
         new JsonTask().execute();
 
@@ -60,7 +64,11 @@ public class RandomWorkout extends Fragment {
             g.setWorkoutModelList(workoutModelList);
 
                 work_Name.setText(workoutModelList.get(0).getWork_Name());
-                work_Descrip.setText(workoutModelList.get(0).getWork_Name());
+                work_Descrip.setText(workoutModelList.get(0).getWork_Descrip());
+
+            //ImageLoader.getInstance().displayImage("http://73.35.6.103/images/"+workoutArray.get(position).getEquip_ID()+".jpg", equipImage); // Default options will be used
+            //Place Holder until we get more images
+            ImageLoader.getInstance().displayImage("http://73.35.6.103/images/1.jpg", equipImage); // Default options will be used
 
         }
 
