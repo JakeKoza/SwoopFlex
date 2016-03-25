@@ -38,7 +38,8 @@
         android:id="@+id/description"
         android:layout_gravity="center_horizontal"
         android:text="@string/dummyString"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:hint="Type name of  the video" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -56,5 +57,12 @@
         android:textSize="16dp"
         android:autoLink="all"
         android:linksClickable="true"/>
+
+    <VideoView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/videoView"
+        android:layout_gravity="center_horizontal"
+        android:clickable="true" />
 
 </LinearLayout>
