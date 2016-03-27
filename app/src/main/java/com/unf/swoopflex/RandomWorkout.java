@@ -1,41 +1,76 @@
 package com.unf.swoopflex;
 
 
+import android.os.AsyncTask;
 import android.os.Bundle;
-//import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-//import android.view.LayoutInflater;
-//import android.view.View;
-//import android.view.ViewGroup;
-import android.net.Uri;
-import android.widget.MediaController;
-import android.widget.VideoView;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.unf.swoopflex.models.WorkoutModel;
+
+import java.util.List;
 
 /**
  * Created by Jake on 1/21/16.
  */
-public class RandomWorkout extends AppCompatActivity {
+public class RandomWorkout extends Fragment {
+
+    TextView work_Name = null;
+    TextView work_Descrip = null;
+    ImageView equipImage;
+    Globals g = Globals.getInstance();
+    public List<WorkoutModel> workoutModelList = g.getWorkoutModelList();
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.display_workout);
-    }
-    //public View onCreateView(LayoutInflater inflater, ViewGroup container,
-  //                           Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.display_workout, container, false);
 
-       /* VideoView videoView =(VideoView)findViewById(R.id.videoView);
-        MediaController mediaController= new MediaController(this);
-        mediaController.setAnchorView(videoView);
-        Uri uri=Uri.parse("rtsp://r7---sn-4g57kue6.googlevideo.com/Ck0LENy73wIaRAmk3cJBg-iaXhMYDSANFC3u0pRWMOCoAUIJbXYtZ29vZ2xlSARSBXdhdGNoYIaluaTkzciOVooBCzVxRjNraG5XcXdnDA==/D693A8E7577C3A29E60C292B42C9C87D7C25A565.762A63DC4CA0A028DA83256C6A79E5F160CBEDA3/yt6/1/video.3gp");
-        videoView.setMediaController(mediaController);
-        videoView.setVideoURI(uri);
-        videoView.requestFocus();
-        videoView.start();
-*/
+        work_Name = (TextView)view.findViewById(R.id.random_workout);
+        work_Descrip = (TextView)view.findViewById(R.id.random_description);
+        equipImage = (ImageView)view.findViewById(R.id.dis_workimage);
 
+        new JsonTask().execute();
 
-
-        //return inflater.inflate(R.layout.display_workout, container, false);
+        return view;
     }
 
+    public class JsonTask extends AsyncTask<String,String,String> {
+
+        HttpConnect http = new HttpConnect();
+        String[][] dataArray = null;
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            String queryData = null;
+            queryData = http.GetRandWorkout();
+
+            return queryData;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            workoutModelList = http.modelWorkoutArrayParser(result);
+
+            g.setWorkoutModelList(workoutModelList);
+
+                work_Name.setText(workoutModelList.get(0).getWork_Name());
+                work_Descrip.setText(workoutModelList.get(0).getWork_Descrip());
+
+            //ImageLoader.getInstance().displayImage("http://73.35.6.103/images/"+workoutArray.get(position).getEquip_ID()+".jpg", equipImage); // Default options will be used
+            //Place Holder until we get more images
+            ImageLoader.getInstance().displayImage("http://73.35.6.103/images/1.jpg", equipImage); // Default options will be used
+
+        }
+
+    }
+}

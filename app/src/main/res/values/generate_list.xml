@@ -1,23 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="generate_list_choices">
-        <item>Full Body</item>
-        <item>Upper Body</item>
-        <item>Lower Body</item>
-        <item>Arms</item>
-        <item>Chest</item>
-        <item>Back</item>
-        <item>Legs</item>
         <item>Abs</item>
+        <item>Arms</item>
+        <item>Back</item>
+        <item>Chest</item>
+        <item>Full Body</item>
+        <item>Legs</item>
+        <item>Lower Body</item>
+        <item>Upper Body</item>
+    </string-array>
+
+    <string-array name="search_list_choices">
+        <item>Any</item>
+        <item>Abs</item>
+        <item>Arms</item>
+        <item>Back</item>
+        <item>Chest</item>
+        <item>Full Body</item>
+        <item>Legs</item>
+        <item>Lower Body</item>
+        <item>Upper Body</item>
     </string-array>
 
     <string-array name="generate_time">
-        <item>10 Minutes</item>
-        <item>15 Minutes</item>
-        <item>20 Minutes</item>
-        <item>30 Minutes</item>
-        <item>45 Minutes</item>
-        <item>1 Hour</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+        <item>30</item>
+        <item>35</item>
+        <item>40</item>
+        <item>45</item>
+        <item>50</item>
+        <item>55</item>
+        <item>60</item>
+    </string-array>
+
+    <string-array name="search_time">
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>Any</item>
     </string-array>
 
     <string-array name="age">
