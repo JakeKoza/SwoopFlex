@@ -61,6 +61,7 @@
         android:layout_height="wrap_content"
         android:text="Youtube"
         android:id="@+id/button"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:onClick="buttonOnClick" />
 
 </LinearLayout>

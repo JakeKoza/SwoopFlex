@@ -88,4 +88,7 @@ public class DisplayWorkout extends Fragment {
             return convertView;
         }
     }
+    public void buttonOnClick(View v) {
+// do something when the button is clicked
+    }
 }
