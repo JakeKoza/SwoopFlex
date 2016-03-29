@@ -12,7 +12,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/random_workout"
             android:textSize="26dp"
-            android:gravity="left|center_vertical"/>
+            android:gravity="left"
+            android:layout_marginTop="64dp"
+            android:layout_marginLeft="6dp"/>
 
         <ImageView
             android:layout_width="150dp"
@@ -63,9 +65,9 @@
         android:layout_marginTop="16dp">
 
         <Button
-            android:layout_width="40dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_chevron_left"
+            android:text="Previous"
             android:id="@+id/previousWorkout" />
 
         <Button
@@ -77,10 +79,15 @@
             android:layout_marginRight="10dp"/>
 
         <Button
-            android:layout_width="40dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/nextWorkout"
-            android:drawableRight="@drawable/ic_chevron_right" />
+            android:text="Next" />
     </LinearLayout>
-
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="All Done!"
+        android:id="@+id/btnAddRoutineToDb"/>
 </LinearLayout>
