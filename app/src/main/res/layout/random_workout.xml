@@ -11,7 +11,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/random_workout"
+        android:id="@+id/random_equipment"
+        android:text="Equipment"
         android:textSize="26dp"
         android:layout_marginLeft="56dp"
         android:layout_marginTop="48dp"/>
@@ -19,7 +20,7 @@
     <ImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:id="@+id/dis_workimage"
+        android:id="@+id/random_equipment_img"
         android:src="@drawable/ic_camera_alt"
         android:layout_alignParentRight="true"/>
 
@@ -37,6 +38,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/random_description"
         android:layout_gravity="center_horizontal"
+        android:text=""
         android:layout_marginBottom="16dp"/>
 
     <TextView
