@@ -1,8 +1,13 @@
 package com.unf.swoopflex;
 
+import android.app.ActionBar;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Button;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.unf.swoopflex.models.WorkoutModel;
@@ -31,11 +37,11 @@ public class DisplayWorkout extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.display_workout, container, false);
+        View view = inflater.inflate(R.layout.display_workout, container, false);
 
-        work_Name = (TextView)view.findViewById(R.id.random_workout);
-        work_Descrip = (TextView)view.findViewById(R.id.random_description);
-        equipImage = (ImageView)view.findViewById(R.id.dis_workimage);
+        work_Name = (TextView) view.findViewById(R.id.random_workout);
+        work_Descrip = (TextView) view.findViewById(R.id.random_description);
+        equipImage = (ImageView) view.findViewById(R.id.dis_workimage);
 
         //ImageLoader.getInstance().displayImage("http://73.35.6.103/images/" + workoutList.get(g.getPosition()).getEquip_ID() + ".jpg", equipImage); // Default options will be used
         ImageLoader.getInstance().displayImage("http://73.35.6.103/images/1.jpg", equipImage); // Default options will be used
@@ -66,7 +72,7 @@ public class DisplayWorkout extends Fragment {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
-            if(convertView == null){
+            if (convertView == null) {
                 convertView = inflater.inflate(resource, null);
             }
 
@@ -75,8 +81,8 @@ public class DisplayWorkout extends Fragment {
 
             Log.d("Adapter", "getView Method Success");
 
-            equipImage = (ImageView)convertView.findViewById(R.id.dis_workimage);
-            workName = (TextView)convertView.findViewById(R.id.dis_workname);
+            equipImage = (ImageView) convertView.findViewById(R.id.dis_workimage);
+            workName = (TextView) convertView.findViewById(R.id.dis_workname);
 
             // Then later, when you want to display image
             //ImageLoader.getInstance().displayImage("http://73.35.6.103/images/"+workoutArray.get(position).getEquip_ID()+".jpg", equipImage); // Default options will be used
@@ -88,7 +94,7 @@ public class DisplayWorkout extends Fragment {
             return convertView;
         }
     }
-    public void buttonOnClick(View v) {
-// do something when the button is clicked
-    }
+
 }
+
+
