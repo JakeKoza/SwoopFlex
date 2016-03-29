@@ -20,7 +20,8 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/dis_workname"
-            android:layout_gravity="center" />
+            android:text="TEST"
+            android:layout_gravity="left|center_vertical" />
 
     </FrameLayout>
 
