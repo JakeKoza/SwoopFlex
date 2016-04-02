@@ -7,13 +7,14 @@ import android.os.Bundle;
 //import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 //import android.support.v7.widget.ActionBarContextView;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 /**
- * Created by eldin ikanovic on 3/27/2016.
+ * Created by eldin ikanovic on 4/2/2016.
  */
 
-    public class Youtube extends ActionBarActivity
+    public class Youtube extends AppCompatActivity
     {
         public void onCreate (Bundle savedInstanceState)
         {
@@ -25,7 +26,7 @@ import android.view.View;
             //Button button=(Button) view;
             // View v =  inflater.inflate(R.layout.display_workout);
 
-            Intent youtubeIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/"));
+            Intent youtubeIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com"));
             startActivity(youtubeIntent);
         }
     }
