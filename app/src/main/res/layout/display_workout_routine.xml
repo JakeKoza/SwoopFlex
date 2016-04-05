@@ -74,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Begin Workout"
-            android:id="@+id/startWorkout"
+            android:id="@+id/timeWorkout"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"/>
 
@@ -84,10 +84,20 @@
             android:id="@+id/nextWorkout"
             android:text="Next" />
     </LinearLayout>
+
     <Button
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="All Done!"
-        android:id="@+id/btnAddRoutineToDb"/>
+        android:text="Reset Timer"
+        android:id="@+id/resetTime"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="00:00:00"
+        android:id="@+id/timer"
+        android:layout_gravity="center_horizontal" />
 </LinearLayout>

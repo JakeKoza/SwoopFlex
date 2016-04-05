@@ -24,4 +24,17 @@ public class SQLiteData {
 
 
     }
+
+    public static abstract class SQLiteTrackingTableInfo implements BaseColumns{
+
+        public static final String DATABASE_NAME = "SQLiteDB";
+        public static final String TABLE_NAME = "Tracking";
+        public static final String Track_Id = "track_Id";
+        public static final String Track_Time = "track_Time";
+        public static final String Track_Date = "track_Date";
+        public static final String Track_Cal = "track_Cal";
+
+
+
+    }
 }

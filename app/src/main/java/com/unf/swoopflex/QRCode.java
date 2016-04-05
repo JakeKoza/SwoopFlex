@@ -20,6 +20,8 @@ public class QRCode extends Fragment {
 
     private String toast;
     String id;
+    Globals g = Globals.getInstance();
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -78,6 +80,8 @@ public class QRCode extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
+
+            g.setFeature(3);
 
             //Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
         }

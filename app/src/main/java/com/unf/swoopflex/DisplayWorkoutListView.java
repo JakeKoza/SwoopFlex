@@ -26,6 +26,7 @@ public class DisplayWorkoutListView extends Fragment {
     Globals g = Globals.getInstance();
     public List<WorkoutModel> workoutList = g.getWorkoutModelList();
     ListView workoutListView;
+    Integer feature;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,28 +54,54 @@ public class DisplayWorkoutListView extends Fragment {
 
                 g.setPosition(position);
 
-                Fragment fragment = null;
+                feature = g.getFeature();
 
-                Class fragmentClass = null;
+                if(feature == 0 ) {
+                    Fragment fragment = null;
 
-                fragmentClass = DisplayWorkout.class;
+                    Class fragmentClass = null;
 
-                try {
-                    fragment = (Fragment) fragmentClass.newInstance();
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    fragmentClass = DisplayRoutineWorkout.class;
+
+                    try {
+                        fragment = (Fragment) fragmentClass.newInstance();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    DisplayRoutineWorkout workoutRoutineDisplay = new DisplayRoutineWorkout();
+
+                    android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+
+                    fragmentTransaction.replace(R.id.flContent, workoutRoutineDisplay);
+
+                    fragmentTransaction.addToBackStack(null);
+
+                    fragmentTransaction.commit();
                 }
+                else{
+                    Fragment fragment = null;
 
-                DisplayWorkout workoutDisplay = new DisplayWorkout();
+                    Class fragmentClass = null;
 
-                android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                    fragmentClass = DisplayWorkout.class;
 
-                fragmentTransaction.replace(R.id.flContent, workoutDisplay);
+                    try {
+                        fragment = (Fragment) fragmentClass.newInstance();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
-                fragmentTransaction.addToBackStack(null);
+                    DisplayWorkout workoutDisplay = new DisplayWorkout();
 
-                fragmentTransaction.commit();
+                    android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
 
+                    fragmentTransaction.replace(R.id.flContent, workoutDisplay);
+
+                    fragmentTransaction.addToBackStack(null);
+
+                    fragmentTransaction.commit();
+                }
             }
         });
 

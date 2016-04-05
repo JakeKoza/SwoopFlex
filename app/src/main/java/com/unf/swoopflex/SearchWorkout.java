@@ -74,6 +74,9 @@ public class SearchWorkout extends Fragment {
             workoutModelList = http.modelWorkoutArrayParser(result);
 
             g.setWorkoutModelList(workoutModelList);
+
+            g.setFeature(2);
+
             Fragment fragment = null;
 
             Class fragmentClass = null;

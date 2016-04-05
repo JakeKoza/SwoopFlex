@@ -14,7 +14,9 @@ public class SQLiteDB extends SQLiteOpenHelper {
     public static final int database_version = 1;
     public String CREATE_QUERY = "CREATE TABLE "+ SQLiteData.SQLiteUserTableInfo.TABLE_NAME +"( "+ SQLiteData.SQLiteUserTableInfo.USER_HEIGHT +
             " INTEGER, "+ SQLiteData.SQLiteUserTableInfo.USER_WEIGHT +" INTEGER, "+ SQLiteData.SQLiteUserTableInfo.USER_AGE +" INTEGER, "+
-            SQLiteData.SQLiteUserTableInfo.USER_GENDER +" INTEGER, "+ SQLiteData.SQLiteUserTableInfo.USER_BMI +" REAL);";
+            SQLiteData.SQLiteUserTableInfo.USER_GENDER +" INTEGER, "+ SQLiteData.SQLiteUserTableInfo.USER_BMI +" REAL); CREATE TABLE "+ SQLiteData.SQLiteTrackingTableInfo.TABLE_NAME +"( "
+            + SQLiteData.SQLiteTrackingTableInfo.Track_Id +" INTEGER, "+ SQLiteData.SQLiteTrackingTableInfo.Track_Time +" REAL, "+ SQLiteData.SQLiteTrackingTableInfo.Track_Date +" REAL, "+
+            SQLiteData.SQLiteTrackingTableInfo.Track_Cal +" REAL);";
 
     public SQLiteDB(Context context) {
         super(context, SQLiteData.SQLiteUserTableInfo.DATABASE_NAME, null, database_version);
