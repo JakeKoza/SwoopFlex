@@ -31,7 +31,7 @@ public class DisplayWorkout extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.display_workout, container, false);
+        View view =  inflater.inflate(R.layout.display_workout_routine, container, false);
 
         work_Name = (TextView)view.findViewById(R.id.random_workout);
         work_Descrip = (TextView)view.findViewById(R.id.random_description);

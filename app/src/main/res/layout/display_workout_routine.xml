@@ -7,21 +7,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/random_equipment"
-        android:text="Equipment"
-        android:textSize="26dp"
-        android:layout_marginLeft="56dp"
-        android:layout_marginTop="48dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/random_workout"
+            android:textSize="26dp"
+            android:gravity="left"
+            android:layout_marginTop="64dp"
+            android:layout_marginLeft="6dp"/>
 
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:id="@+id/random_equipment_img"
-        android:src="@drawable/ic_camera_alt"
-        android:layout_alignParentRight="true"/>
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/dis_workimage"
+            android:src="@drawable/ic_camera_alt"
+            android:layout_margin="6dp"
+            android:layout_alignParentRight="true"/>
 
     </RelativeLayout>
 
@@ -35,9 +36,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/description"
+        android:id="@+id/random_description"
         android:layout_gravity="center_horizontal"
-        android:text="@string/dummyString"
         android:layout_marginBottom="16dp"/>
 
     <TextView
@@ -65,9 +65,9 @@
         android:layout_marginTop="16dp">
 
         <Button
-            android:layout_width="40dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_chevron_left"
+            android:text="Previous"
             android:id="@+id/previousWorkout" />
 
         <Button
@@ -79,10 +79,15 @@
             android:layout_marginRight="10dp"/>
 
         <Button
-            android:layout_width="40dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/nextWorkout"
-            android:drawableRight="@drawable/ic_chevron_right" />
+            android:text="Next" />
     </LinearLayout>
-
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="All Done!"
+        android:id="@+id/btnAddRoutineToDb"/>
 </LinearLayout>
