@@ -60,12 +60,15 @@ public class RandomWorkout extends Fragment {
             super.onPostExecute(result);
 
             workoutModelList = http.modelWorkoutArrayParser(result);
-
+            
+            //Sets global arraylist to list returned from DB
             g.setWorkoutModelList(workoutModelList);
 
-                work_Name.setText(workoutModelList.get(0).getWork_Name());
-                work_Descrip.setText(workoutModelList.get(0).getWork_Descrip());
+            //Sets workout information from array list
+            work_Name.setText(workoutModelList.get(0).getWork_Name());
+            work_Descrip.setText(workoutModelList.get(0).getWork_Descrip());
 
+            //Used to load Image from DB
             //ImageLoader.getInstance().displayImage("http://73.35.6.103/images/"+workoutArray.get(position).getEquip_ID()+".jpg", equipImage); // Default options will be used
             //Place Holder until we get more images
             ImageLoader.getInstance().displayImage("http://73.35.6.103/images/1.jpg", equipImage); // Default options will be used

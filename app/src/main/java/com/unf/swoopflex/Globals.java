@@ -13,12 +13,18 @@ import java.util.List;
 public class Globals extends Application{
 
     private static Globals instance;
+    //Global Var used to hold List of workouts returned from DB
     private List<WorkoutModel> workoutModelList = new ArrayList<>();
+    //Global Var used to hold position of desired workout in Arraylist
     private int position;
+    //Global Var used to hold selected feature
     private int feature;
+    //Global Var used to hold Total Time for one routine
     private long totalTime = 0L;
 
     private Globals(){};
+
+    //Each Var above has a get and set Method found below
 
     public List<WorkoutModel> getWorkoutModelList() {
         return workoutModelList;
@@ -28,6 +34,8 @@ public class Globals extends Application{
         this.workoutModelList = workoutModelList;
     }
 
+    //Returns length of ListArray
+    //Used in displayRoutineWorkout for next and previous buttons
     public Integer getWorkoutModelListLength(){
 
         return workoutModelList.size();

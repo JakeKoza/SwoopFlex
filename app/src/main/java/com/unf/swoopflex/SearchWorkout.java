@@ -58,6 +58,7 @@ public class SearchWorkout extends Fragment {
         HttpConnect http = new HttpConnect();
         String[][] dataArray = null;
 
+        //Method used to do background task
         @Override
         protected String doInBackground(String... params) {
 
@@ -71,12 +72,16 @@ public class SearchWorkout extends Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
+            //Gets arraylist from HttpConnect Class
             workoutModelList = http.modelWorkoutArrayParser(result);
 
+            //Sets global arraylist to list returned from DB
             g.setWorkoutModelList(workoutModelList);
 
+            //Sets global feature to current feature
             g.setFeature(2);
 
+            //Code below is used to change fragments
             Fragment fragment = null;
 
             Class fragmentClass = null;

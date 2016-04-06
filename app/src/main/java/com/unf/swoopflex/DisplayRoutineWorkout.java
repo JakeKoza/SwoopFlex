@@ -1,16 +1,13 @@
 package com.unf.swoopflex;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -49,8 +46,8 @@ public class DisplayRoutineWorkout extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.display_workout_routine, container, false);
 
-        work_Name = (TextView)view.findViewById(R.id.random_workout);
-        work_Descrip = (TextView)view.findViewById(R.id.random_description);
+        work_Name = (TextView)view.findViewById(R.id.name_workout);
+        work_Descrip = (TextView)view.findViewById(R.id.workout_description);
         equipImage = (ImageView)view.findViewById(R.id.dis_workimage);
         prevButton = (Button)view.findViewById(R.id.previousWorkout);
         nextButton = (Button)view.findViewById(R.id.nextWorkout);
@@ -58,17 +55,20 @@ public class DisplayRoutineWorkout extends Fragment {
         resetButton = (Button)view.findViewById(R.id.resetTime);
         time = (TextView) view.findViewById(R.id.timer);
 
+        //checks position for last workout. sets next to all done if on last workout
         if (g.getPosition() + 1 == g.getWorkoutModelListLength()) {
 
             nextButton.setText("All Done!");
         }
 
+        //checks position for first workout. Disables prev button if on first workout
         if (g.getPosition() - 1 == -1) {
 
             prevButton.setEnabled(false);
 
         }
 
+        //Used to load image from database
         //ImageLoader.getInstance().displayImage("http://73.35.6.103/images/" + workoutList.get(g.getPosition()).getEquip_ID() + ".jpg", equipImage); // Default options will be used
         ImageLoader.getInstance().displayImage("http://73.35.6.103/images/1.jpg", equipImage); // Default options will be used
 
@@ -79,12 +79,15 @@ public class DisplayRoutineWorkout extends Fragment {
             @Override
             public void onClick(View v) {
 
+               //Used to start and stop timer
                 if (timeButton.getText().toString().equals("Begin Workout")) {
+                    //Starts Timer
                     timeButton.setText("Pause Workout");
                     starttime = SystemClock.uptimeMillis();
                     handler.postDelayed(updateTimer, 0);
                     t = 0;
                 } else {
+                    //Pauses Timer
                     timeButton.setText("Begin Workout");
                     time.setTextColor(Color.parseColor("#2196F3"));
                     timeSwapBuff += timeInMilliseconds;
@@ -94,6 +97,7 @@ public class DisplayRoutineWorkout extends Fragment {
             }
         });
 
+        //Used to reset timer
         resetButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -116,21 +120,27 @@ public class DisplayRoutineWorkout extends Fragment {
             @Override
             public void onClick(View v) {
 
+                //Checks to see if timer is running. if true stops timer
                 if(t == 0){
 
                     timeSwapBuff += timeInMilliseconds;
                     handler.removeCallbacks(updateTimer);
                 }
 
+                //Adds current timer time to global total time
                 g.setTotalTime(updatedtime + g.getTotalTime());
 
                 if (g.getPosition() + 1 == g.getWorkoutModelListLength()) {
 
+                    //Toasts global total time
                     Toast.makeText(getActivity(), String.valueOf(g.getTotalTime()), Toast.LENGTH_SHORT).show();
 
                 } else {
+
+                    //sets global position to the next workout in the list
                     g.setPosition(g.getPosition() + 1);
 
+                    //Code below is used to change fragments.
                     Fragment fragment = null;
 
                     Class fragmentClass = null;
@@ -160,83 +170,47 @@ public class DisplayRoutineWorkout extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if (g.getPosition() - 1 == -1) {
+                //Checks to see if timer is running. if true stops timer
+                if(t == 0){
 
-                    Toast.makeText(getActivity(), "First Workout in Routine", Toast.LENGTH_SHORT).show();
-
-                } else {
-                    g.setPosition(g.getPosition() - 1);
-
-                    Fragment fragment = null;
-
-                    Class fragmentClass = null;
-
-                    fragmentClass = DisplayRoutineWorkout.class;
-
-                    try {
-                        fragment = (Fragment) fragmentClass.newInstance();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                    DisplayRoutineWorkout workoutRoutineDisplay = new DisplayRoutineWorkout();
-
-                    android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-
-                    fragmentTransaction.replace(R.id.flContent, workoutRoutineDisplay);
-
-                    fragmentTransaction.addToBackStack(null);
-
-                    fragmentTransaction.commit();
+                    timeSwapBuff += timeInMilliseconds;
+                    handler.removeCallbacks(updateTimer);
                 }
+
+                //Adds current timer time to global total time
+                g.setTotalTime(updatedtime + g.getTotalTime());
+
+                //Sets global position to the previous workout in list
+                g.setPosition(g.getPosition() - 1);
+
+                //Code below is used to change fragments.
+                Fragment fragment = null;
+
+                Class fragmentClass = null;
+
+                fragmentClass = DisplayRoutineWorkout.class;
+
+                try {
+                    fragment = (Fragment) fragmentClass.newInstance();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                DisplayRoutineWorkout workoutRoutineDisplay = new DisplayRoutineWorkout();
+
+                android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+
+                fragmentTransaction.replace(R.id.flContent, workoutRoutineDisplay);
+
+                fragmentTransaction.addToBackStack(null);
+
+                fragmentTransaction.commit();
+
             }
         });
 
 
         return view;
-    }
-
-
-    public class WorkoutAdapter extends ArrayAdapter {
-
-        private int resource;
-        private LayoutInflater inflater;
-        private List<WorkoutModel> workoutArray;
-
-        public WorkoutAdapter(Context context, int resource, List<WorkoutModel> workoutModel) {
-            super(context, resource, workoutModel);
-
-            workoutArray = workoutModel;
-            this.resource = resource;
-            inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            Log.d("workoutadapter", "Success");
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            if(convertView == null){
-                convertView = inflater.inflate(resource, null);
-            }
-
-            ImageView equipImage;
-            TextView workName;
-
-            Log.d("Adapter", "getView Method Success");
-
-            equipImage = (ImageView)convertView.findViewById(R.id.dis_workimage);
-            workName = (TextView)convertView.findViewById(R.id.dis_workname);
-
-            // Then later, when you want to display image
-            //ImageLoader.getInstance().displayImage("http://73.35.6.103/images/"+workoutArray.get(position).getEquip_ID()+".jpg", equipImage); // Default options will be used
-            //Place Holder until we get more images
-            ImageLoader.getInstance().displayImage("http://73.35.6.103/images/1.jpg", equipImage); // Default options will be used
-
-            workName.setText(workoutArray.get(position).getWork_Name());
-
-            return convertView;
-        }
     }
 
     public Runnable updateTimer = new Runnable() {

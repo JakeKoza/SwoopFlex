@@ -36,27 +36,36 @@ public class DisplayWorkoutListView extends Fragment {
 
         workoutListView = (ListView)view.findViewById(R.id.workout_listview);
 
-
+        //creates adpater to load list view
         final WorkoutAdapter adapter = new WorkoutAdapter(getContext(), R.layout.workout_listview_display, workoutList);
 
+        //Sets adapter to workoutListView and executes adapter class code.
         workoutListView.setAdapter(adapter);
 
         Log.d("workoutListView", "return Success");
 
-
+        //When workout is clicked method loads workout for display
         workoutListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                //gets position of item clicked
                 WorkoutModel workout = (WorkoutModel) adapter.getItem(position);
 
                 //Toast.makeText(getActivity(), workout.getWork_ID(), Toast.LENGTH_LONG).show();
 
+                //sets global position to clicked workout
                 g.setPosition(position);
 
+                //Gets current feature
                 feature = g.getFeature();
 
+                //Checks to see what feature is being used. If 0/genRoutine then load DisplayRoutineWorkout else DisplayWorkout
+                //DisplayRoutineWorkout is used only for generating routines feature
+                //DisplayWorkout is used for all other features
                 if(feature == 0 ) {
+
+                    //Code below is used to change fragments.
                     Fragment fragment = null;
 
                     Class fragmentClass = null;
@@ -80,6 +89,8 @@ public class DisplayWorkoutListView extends Fragment {
                     fragmentTransaction.commit();
                 }
                 else{
+
+                    //Code below is used to change fragments.
                     Fragment fragment = null;
 
                     Class fragmentClass = null;
@@ -108,12 +119,14 @@ public class DisplayWorkoutListView extends Fragment {
         return view;
     }
 
+    //Adapter class is needed to load listview
     public class WorkoutAdapter extends ArrayAdapter{
 
         private int resource;
         private LayoutInflater inflater;
         private List<WorkoutModel> workoutArray;
 
+        //Method used to do background task
         public WorkoutAdapter(Context context, int resource, List<WorkoutModel> workoutModel) {
             super(context, resource, workoutModel);
 
@@ -124,6 +137,7 @@ public class DisplayWorkoutListView extends Fragment {
             Log.d("workoutadapter", "Success");
         }
 
+        //Method used to load each item in the list view
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 

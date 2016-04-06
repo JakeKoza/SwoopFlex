@@ -13,8 +13,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/random_workout"
         android:textSize="26dp"
-        android:layout_marginLeft="56dp"
-        android:layout_marginTop="48dp"/>
+        android:gravity="left"
+        android:layout_marginTop="64dp"
+        android:layout_marginLeft="6dp"/>
 
     <ImageView
         android:layout_width="150dp"
