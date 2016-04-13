@@ -12,6 +12,7 @@ import android.util.Log;
  */
 public class SQLiteDB extends SQLiteOpenHelper {
     public static final int database_version = 1;
+    //String used to create DB
     public String CREATE_QUERY = "CREATE TABLE "+ SQLiteData.SQLiteUserTableInfo.TABLE_NAME +"( "+ SQLiteData.SQLiteUserTableInfo.USER_HEIGHT +
             " INTEGER, "+ SQLiteData.SQLiteUserTableInfo.USER_WEIGHT +" INTEGER, "+ SQLiteData.SQLiteUserTableInfo.USER_AGE +" INTEGER, "+
             SQLiteData.SQLiteUserTableInfo.USER_GENDER +" INTEGER, "+ SQLiteData.SQLiteUserTableInfo.USER_BMI +" REAL); CREATE TABLE "+ SQLiteData.SQLiteTrackingTableInfo.TABLE_NAME +"( "
@@ -35,6 +36,8 @@ public class SQLiteDB extends SQLiteOpenHelper {
 
     }
 
+    //Method used to insert data into local DB
+    //Only supports storing 1 user
     public void SQLiteUserInsert(SQLiteDB db, int height, int weight, int age, int gender, double bmi){
 
         SQLiteDatabase SQ = db.getWritableDatabase();
@@ -56,6 +59,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
 
     }
 
+    //Method for retrieving User Information from local database
     public Cursor SQLiteUserData(SQLiteDB db){
 
         SQLiteDatabase SQ = db.getReadableDatabase();
@@ -68,6 +72,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
         return CR;
     }
 
+    //Method for retrieving BMI from local database
     public Cursor SQLiteUserGetBMI(SQLiteDB db){
 
         SQLiteDatabase SQ = db.getReadableDatabase();
@@ -79,6 +84,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
         return CR;
     }
 
+    //Method used to check to see if the DB exist
     public boolean SQLiteCheckDB(SQLiteDB db){
 
         SQLiteDatabase SQ = db.getReadableDatabase();

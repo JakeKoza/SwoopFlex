@@ -46,6 +46,8 @@ public class RandomWorkout extends Fragment {
         HttpConnect http = new HttpConnect();
         String[][] dataArray = null;
 
+        //Method used to do background task
+        //Calls httpconnect class get randworkout that returns a random workout from the external DB
         @Override
         protected String doInBackground(String... params) {
 

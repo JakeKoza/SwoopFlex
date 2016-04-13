@@ -47,6 +47,8 @@ public class HomeWorkout extends Fragment{
 
         ctx = getActivity().getApplicationContext();
         SQLiteDB DB = new SQLiteDB(ctx);
+
+        //Checks to see if DB exist. If true loads user data from local DB
         if(DB.SQLiteCheckDB(DB)) {
             Cursor CR = DB.SQLiteUserData(DB);
             CR.moveToFirst();
@@ -70,6 +72,7 @@ public class HomeWorkout extends Fragment{
             }
         }
 
+        //When clicked Saves entered information to local DB
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
