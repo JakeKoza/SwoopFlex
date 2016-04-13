@@ -13,11 +13,12 @@ import android.util.Log;
 public class SQLiteDB extends SQLiteOpenHelper {
     public static final int database_version = 1;
     //String used to create DB
-    public String CREATE_QUERY = "CREATE TABLE "+ SQLiteData.SQLiteUserTableInfo.TABLE_NAME +"( "+ SQLiteData.SQLiteUserTableInfo.USER_HEIGHT +
+    public String CREATE_QUERY_User = "CREATE TABLE "+ SQLiteData.SQLiteUserTableInfo.TABLE_NAME +"( "+ SQLiteData.SQLiteUserTableInfo.USER_HEIGHT +
             " INTEGER, "+ SQLiteData.SQLiteUserTableInfo.USER_WEIGHT +" INTEGER, "+ SQLiteData.SQLiteUserTableInfo.USER_AGE +" INTEGER, "+
-            SQLiteData.SQLiteUserTableInfo.USER_GENDER +" INTEGER, "+ SQLiteData.SQLiteUserTableInfo.USER_BMI +" REAL); CREATE TABLE "+ SQLiteData.SQLiteTrackingTableInfo.TABLE_NAME +"( "
-            + SQLiteData.SQLiteTrackingTableInfo.Track_Id +" INTEGER, "+ SQLiteData.SQLiteTrackingTableInfo.Track_Time +" REAL, "+ SQLiteData.SQLiteTrackingTableInfo.Track_Date +" REAL, "+
-            SQLiteData.SQLiteTrackingTableInfo.Track_Cal +" REAL);";
+            SQLiteData.SQLiteUserTableInfo.USER_GENDER +" INTEGER, "+ SQLiteData.SQLiteUserTableInfo.USER_BMI +" REAL);";
+
+    public String CREATE_QUERY_Tracking =  "CREATE TABLE "+ SQLiteData.SQLiteTrackingTableInfo.TABLE_NAME +"( " + SQLiteData.SQLiteTrackingTableInfo.Track_Time +" REAL, "+ SQLiteData.SQLiteTrackingTableInfo.Track_Date +" REAL, "+
+             SQLiteData.SQLiteTrackingTableInfo.Track_Cal +" REAL);";
 
     public SQLiteDB(Context context) {
         super(context, SQLiteData.SQLiteUserTableInfo.DATABASE_NAME, null, database_version);
@@ -27,7 +28,8 @@ public class SQLiteDB extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sdb) {
 
-        sdb.execSQL(CREATE_QUERY);
+        sdb.execSQL(CREATE_QUERY_User);
+        sdb.execSQL(CREATE_QUERY_Tracking);
         Log.d("SQLiteDB", "Table Created");
     }
 
@@ -50,13 +52,54 @@ public class SQLiteDB extends SQLiteOpenHelper {
         cv.put(SQLiteData.SQLiteUserTableInfo.USER_BMI, bmi);
 
         if(!(SQLiteCheckDB(db))) {
-            long k = SQ.insert(SQLiteData.SQLiteUserTableInfo.TABLE_NAME, null, cv);
+            SQ.insert(SQLiteData.SQLiteUserTableInfo.TABLE_NAME, null, cv);
             Log.d("SQLiteDB", "Info Inserted");
         }else{
-            long k = SQ.update(SQLiteData.SQLiteUserTableInfo.TABLE_NAME, cv, "rowid=1", null);
+            SQ.update(SQLiteData.SQLiteUserTableInfo.TABLE_NAME, cv, "rowid=1", null);
             Log.d("SQLiteDB", "Info Updated");
         }
 
+    }
+
+    //Method used to insert data into local DB
+    //Only supports storing 1 user
+    public void SQLiteTrackingInsert(SQLiteDB db, double track_time, double track_date, double track_cal){
+
+        SQLiteDatabase SQ = db.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(SQLiteData.SQLiteTrackingTableInfo.Track_Time, track_time);
+        cv.put(SQLiteData.SQLiteTrackingTableInfo.Track_Date, track_date);
+        cv.put(SQLiteData.SQLiteTrackingTableInfo.Track_Cal, track_cal);
+
+        SQ.insert(SQLiteData.SQLiteTrackingTableInfo.TABLE_NAME, null, cv);
+        Log.d("SQLiteDB", "Info Inserted");
+
+
+    }
+
+    //Method for retrieving tracking Information from local database
+    public Cursor SQLiteTrackingData(SQLiteDB db){
+
+        SQLiteDatabase SQ = db.getReadableDatabase();
+
+        String[] columns = {SQLiteData.SQLiteTrackingTableInfo.TABLE_NAME, SQLiteData.SQLiteTrackingTableInfo.Track_Time, SQLiteData.SQLiteTrackingTableInfo.Track_Date, SQLiteData.SQLiteTrackingTableInfo.Track_Cal};
+        //Table name, columns, selectionWhere, selectionArg, groupby, having, orderby
+        Cursor CR = SQ.query(SQLiteData.SQLiteTrackingTableInfo.TABLE_NAME, columns, null, null, null, null, null);
+
+        return CR;
+    }
+
+    //Method for retrieving tracking Information from local database
+    public Cursor SQLiteTrackingCal(SQLiteDB db){
+
+        SQLiteDatabase SQ = db.getReadableDatabase();
+
+        String[] columns = {SQLiteData.SQLiteTrackingTableInfo.Track_Cal};
+        //Table name, columns, selectionWhere, selectionArg, groupby, having, orderby
+        Cursor CR = SQ.query(SQLiteData.SQLiteTrackingTableInfo.TABLE_NAME, columns, null, null, null, null, null);
+
+        return CR;
     }
 
     //Method for retrieving User Information from local database
@@ -78,6 +121,18 @@ public class SQLiteDB extends SQLiteOpenHelper {
         SQLiteDatabase SQ = db.getReadableDatabase();
 
         String[] columns = {SQLiteData.SQLiteUserTableInfo.USER_BMI};
+
+        Cursor CR = SQ.query(SQLiteData.SQLiteUserTableInfo.TABLE_NAME, columns, null, null, null, null, null);
+
+        return CR;
+    }
+
+    //Method for retrieving Weight from local database
+    public Cursor SQLiteUserGetWeight (SQLiteDB db){
+
+        SQLiteDatabase SQ = db.getReadableDatabase();
+
+        String[] columns = {SQLiteData.SQLiteUserTableInfo.USER_WEIGHT};
 
         Cursor CR = SQ.query(SQLiteData.SQLiteUserTableInfo.TABLE_NAME, columns, null, null, null, null, null);
 

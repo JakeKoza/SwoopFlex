@@ -51,10 +51,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/link"
-        android:text="@string/workout"
+        android:text="YouTube"
         android:layout_gravity="center_horizontal"
         android:textSize="16dp"
-        android:autoLink="all"
+        android:clickable="true"
         android:linksClickable="true"/>
 
     <LinearLayout

@@ -93,9 +93,9 @@ public class HomeWorkout extends Fragment{
                     user_gender = 1;
                 }
                 //calculate bmi
-                temp_weight = user_weight * .45;
+                temp_weight = user_weight/2.2;
 
-                temp_height = user_height * .025;
+                temp_height = user_height * .0254;
 
                 temp_height = temp_height * temp_height;
 

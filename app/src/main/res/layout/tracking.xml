@@ -20,14 +20,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tvBMI"
-            android:text="TEST"/>
+            android:text="Please Enter Info"/>
 
     </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Calories Burned in the Last 5 Workouts"
+        android:text="Calories Burned in the Last 5 Routines"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="10dp"
         android:layout_gravity="center_horizontal"

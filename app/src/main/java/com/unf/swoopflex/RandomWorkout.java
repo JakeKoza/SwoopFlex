@@ -4,6 +4,8 @@ package com.unf.swoopflex;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,7 @@ public class RandomWorkout extends Fragment {
 
     TextView work_Name = null;
     TextView work_Descrip = null;
+    TextView link;
     ImageView equipImage;
     Globals g = Globals.getInstance();
     public List<WorkoutModel> workoutModelList = g.getWorkoutModelList();
@@ -35,6 +38,8 @@ public class RandomWorkout extends Fragment {
         work_Name = (TextView)view.findViewById(R.id.random_workout);
         work_Descrip = (TextView)view.findViewById(R.id.random_description);
         equipImage = (ImageView)view.findViewById(R.id.dis_workimage);
+        link = (TextView) view.findViewById(R.id.link);
+
 
         new JsonTask().execute();
 
@@ -69,6 +74,9 @@ public class RandomWorkout extends Fragment {
             //Sets workout information from array list
             work_Name.setText(workoutModelList.get(0).getWork_Name());
             work_Descrip.setText(workoutModelList.get(0).getWork_Descrip());
+            link.setText(Html.fromHtml("<a href=" + workoutModelList.get(g.getPosition()).getWork_Video() + ">YouTube</a>"));
+            link.setClickable(true);
+            link.setMovementMethod(LinkMovementMethod.getInstance());
 
             //Used to load Image from DB
             //ImageLoader.getInstance().displayImage("http://73.35.6.103/images/"+workoutArray.get(position).getEquip_ID()+".jpg", equipImage); // Default options will be used

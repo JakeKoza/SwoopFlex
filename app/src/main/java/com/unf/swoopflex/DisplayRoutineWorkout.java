@@ -1,10 +1,14 @@
 package com.unf.swoopflex;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +20,7 @@ import android.widget.Toast;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.unf.swoopflex.models.WorkoutModel;
 
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -23,10 +28,15 @@ import java.util.List;
  */
 public class DisplayRoutineWorkout extends Fragment {
 
+    Context ctx = null;
     TextView work_Name = null;
     TextView work_Descrip = null;
+    TextView link = null;
     ImageView equipImage;
     Button prevButton, nextButton, timeButton, resetButton;
+    double track_time;
+    double track_cal;
+    double track_date;
     Globals g = Globals.getInstance();
     public List<WorkoutModel> workoutList = g.getWorkoutModelList();
     TextView time;
@@ -39,6 +49,7 @@ public class DisplayRoutineWorkout extends Fragment {
     int mins = 0;
     int milliseconds = 0;
     Handler handler = new Handler();
+    Integer weight;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,6 +65,9 @@ public class DisplayRoutineWorkout extends Fragment {
         timeButton = (Button)view.findViewById(R.id.timeWorkout);
         resetButton = (Button)view.findViewById(R.id.resetTime);
         time = (TextView) view.findViewById(R.id.timer);
+        link = (TextView) view.findViewById(R.id.link);
+
+
 
         //checks position for last workout. sets next to all done if on last workout
         if (g.getPosition() + 1 == g.getWorkoutModelListLength()) {
@@ -74,12 +88,16 @@ public class DisplayRoutineWorkout extends Fragment {
 
         work_Name.setText(workoutList.get(g.getPosition()).getWork_Name());
         work_Descrip.setText(workoutList.get(g.getPosition()).getWork_Descrip());
+        //link.setText(Html.fromHtml("<a href=\" + workoutList.get(g.getPosition()).getWork_Video() + "\>" YouTube</a>");
+        link.setText(Html.fromHtml("<a href=" + workoutList.get(g.getPosition()).getWork_Video() + ">YouTube</a>"));
+        link.setClickable(true);
+        link.setMovementMethod(LinkMovementMethod.getInstance());
 
         timeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-               //Used to start and stop timer
+                //Used to start and stop timer
                 if (timeButton.getText().toString().equals("Begin Workout")) {
                     //Starts Timer
                     timeButton.setText("Pause Workout");
@@ -114,7 +132,8 @@ public class DisplayRoutineWorkout extends Fragment {
                 timeButton.setText("Begin Workout");
                 handler.removeCallbacks(updateTimer);
                 time.setText("00:00:00");
-            }});
+            }
+        });
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,7 +152,56 @@ public class DisplayRoutineWorkout extends Fragment {
                 if (g.getPosition() + 1 == g.getWorkoutModelListLength()) {
 
                     //Toasts global total time
-                    Toast.makeText(getActivity(), String.valueOf(g.getTotalTime()), Toast.LENGTH_SHORT).show();
+                   //Toast.makeText(getActivity(), String.valueOf(g.getTotalTime()), Toast.LENGTH_SHORT).show();
+
+                    track_time = g.getTotalTime();
+
+                    Calendar calendar = Calendar.getInstance();
+
+                    track_date = calendar.getTimeInMillis();
+
+                    ctx = getActivity().getApplicationContext();
+                    SQLiteDB DB = new SQLiteDB(ctx);
+
+                    Cursor CR = DB.SQLiteUserGetWeight(DB);
+                    CR.moveToFirst();
+
+                    if(DB.SQLiteCheckDB(DB)) {
+                        weight = CR.getInt(0);
+                    }else{
+                        weight = 150;
+                    }
+                    double temp_secs = (float) (track_time / 1000);
+                    double temp_mins = temp_secs / 60;
+
+                    track_cal = ((.0175 * 8 * (weight/2.2))* temp_mins);
+
+                    DB.SQLiteTrackingInsert(DB, track_time, track_date, track_cal);
+
+                    Toast.makeText(getActivity(), "Tracking Data Saved", Toast.LENGTH_SHORT).show();
+
+                    //Code below is used to change fragments.
+                    Fragment fragment = null;
+
+                    Class fragmentClass = null;
+
+                    fragmentClass = GenerateWorkout.class;
+
+                    try {
+                        fragment = (Fragment) fragmentClass.newInstance();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    GenerateWorkout generateWorkout = new GenerateWorkout();
+
+                    android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+
+                    fragmentTransaction.replace(R.id.flContent, generateWorkout);
+
+                    fragmentTransaction.addToBackStack(null);
+
+                    fragmentTransaction.commit();
 
                 } else {
 
