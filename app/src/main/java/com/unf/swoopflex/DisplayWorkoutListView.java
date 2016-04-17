@@ -153,10 +153,8 @@ public class DisplayWorkoutListView extends Fragment {
             equipImage = (ImageView)convertView.findViewById(R.id.dis_workimage);
             workName = (TextView)convertView.findViewById(R.id.dis_workname);
 
-            // Then later, when you want to display image
-            //ImageLoader.getInstance().displayImage("http://73.35.6.103/images/"+workoutArray.get(position).getEquip_ID()+".jpg", equipImage); // Default options will be used
-            //Place Holder until we get more images
-            ImageLoader.getInstance().displayImage("http://73.35.6.103/images/1.jpg", equipImage); // Default options will be used
+            //used to load images from db
+            ImageLoader.getInstance().displayImage("http://73.35.6.103/images/"+workoutArray.get(position).getEquip_ID()+"-min.JPG", equipImage); // Default options will be used
 
             workName.setText(workoutArray.get(position).getWork_Name());
 
