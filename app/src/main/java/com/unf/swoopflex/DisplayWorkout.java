@@ -38,11 +38,8 @@ public class DisplayWorkout extends Fragment {
         equipImage = (ImageView)view.findViewById(R.id.dis_workimage);
         link = (TextView) view.findViewById(R.id.link);
 
-
-
         //Used to load image from database
-        //ImageLoader.getInstance().displayImage("http://73.35.6.103/images/" + workoutList.get(g.getPosition()).getEquip_ID() + ".jpg", equipImage); // Default options will be used
-        ImageLoader.getInstance().displayImage("http://73.35.6.103/images/1.jpg", equipImage); // Default options will be used
+        ImageLoader.getInstance().displayImage("http://73.35.6.103/images/"+workoutList.get(g.getPosition()).getEquip_ID()+"-min.JPG", equipImage); // Default options will be used
 
         //Sets workout information to be displayed
         work_Name.setText(workoutList.get(g.getPosition()).getWork_Name());

@@ -83,8 +83,8 @@ public class DisplayRoutineWorkout extends Fragment {
         }
 
         //Used to load image from database
-        //ImageLoader.getInstance().displayImage("http://73.35.6.103/images/" + workoutList.get(g.getPosition()).getEquip_ID() + ".jpg", equipImage); // Default options will be used
-        ImageLoader.getInstance().displayImage("http://73.35.6.103/images/1.jpg", equipImage); // Default options will be used
+        ImageLoader.getInstance().displayImage("http://73.35.6.103/images/" + workoutList.get(g.getPosition()).getEquip_ID() + "-min.JPG", equipImage); // Default options will be used
+
 
         work_Name.setText(workoutList.get(g.getPosition()).getWork_Name());
         work_Descrip.setText(workoutList.get(g.getPosition()).getWork_Descrip());

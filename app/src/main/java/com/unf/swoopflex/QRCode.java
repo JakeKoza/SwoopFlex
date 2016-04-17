@@ -12,6 +12,10 @@ import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.unf.swoopflex.models.WorkoutModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Jake on 1/21/16.
@@ -21,7 +25,7 @@ public class QRCode extends Fragment {
     private String toast;
     String id;
     Globals g = Globals.getInstance();
-
+    public List<WorkoutModel> workoutModelList = new ArrayList<>();
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -35,6 +39,8 @@ public class QRCode extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
        View view =  inflater.inflate(R.layout.qr_code, container, false);
+
+        g.setFeature(3);
 
         IntentIntegrator.forSupportFragment(this).initiateScan();
 
@@ -83,8 +89,34 @@ public class QRCode extends Fragment {
 
             g.setFeature(3);
 
+            workoutModelList = http.modelWorkoutArrayParser(result);
+
+            g.setWorkoutModelList(workoutModelList);
+
+            Fragment fragment = null;
+
+            Class fragmentClass = null;
+
+            fragmentClass = DisplayWorkoutListView.class;
+
+            try {
+                fragment = (Fragment) fragmentClass.newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            DisplayWorkoutListView workoutListView = new DisplayWorkoutListView();
+
+            android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+
+            fragmentTransaction.replace(R.id.flContent, workoutListView);
+
+            fragmentTransaction.addToBackStack(null);
+
+            fragmentTransaction.commit();
+        }
+
             //Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
         }
 
     }
-}

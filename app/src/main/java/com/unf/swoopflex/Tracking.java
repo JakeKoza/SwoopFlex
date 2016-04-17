@@ -30,7 +30,7 @@ public class Tracking extends Fragment implements View.OnClickListener{
     Context ctx = null;
     TextView BMI;
     double bmi, RoutineOne, RoutineTwo, RoutineThree, RoutineFour, RoutineFive;
-
+    Globals g = Globals.getInstance();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,6 +39,8 @@ public class Tracking extends Fragment implements View.OnClickListener{
         View view = inflater.inflate(R.layout.tracking, container, false);
 
         GraphView graph = (GraphView) view.findViewById(R.id.graph);
+
+        g.setFeature(4);
 
         //Creates DB Object
         ctx = getActivity().getApplicationContext();

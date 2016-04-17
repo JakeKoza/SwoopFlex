@@ -35,6 +35,8 @@ public class RandomWorkout extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.display_workout, container, false);
 
+        g.setFeature(1);
+
         work_Name = (TextView)view.findViewById(R.id.random_workout);
         work_Descrip = (TextView)view.findViewById(R.id.random_description);
         equipImage = (ImageView)view.findViewById(R.id.dis_workimage);
@@ -74,14 +76,14 @@ public class RandomWorkout extends Fragment {
             //Sets workout information from array list
             work_Name.setText(workoutModelList.get(0).getWork_Name());
             work_Descrip.setText(workoutModelList.get(0).getWork_Descrip());
-            link.setText(Html.fromHtml("<a href=" + workoutModelList.get(g.getPosition()).getWork_Video() + ">YouTube</a>"));
+            link.setText(Html.fromHtml("<a href=" + workoutModelList.get(0).getWork_Video() + ">YouTube</a>"));
             link.setClickable(true);
             link.setMovementMethod(LinkMovementMethod.getInstance());
 
             //Used to load Image from DB
-            //ImageLoader.getInstance().displayImage("http://73.35.6.103/images/"+workoutArray.get(position).getEquip_ID()+".jpg", equipImage); // Default options will be used
+            ImageLoader.getInstance().displayImage("http://73.35.6.103/images/"+workoutModelList.get(0).getEquip_ID()+"-min.JPG", equipImage); // Default options will be used
             //Place Holder until we get more images
-            ImageLoader.getInstance().displayImage("http://73.35.6.103/images/1.jpg", equipImage); // Default options will be used
+            //ImageLoader.getInstance().displayImage("http://73.35.6.103/images/2-min.JPG", equipImage); // Default options will be used
 
         }
 
