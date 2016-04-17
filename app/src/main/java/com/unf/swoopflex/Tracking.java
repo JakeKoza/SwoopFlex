@@ -2,8 +2,10 @@ package com.unf.swoopflex;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,12 +14,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.share.Sharer;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+
+import com.facebook.FacebookSdk;
 
 
 /**
@@ -26,17 +36,23 @@ import java.text.NumberFormat;
 public class Tracking extends Fragment implements View.OnClickListener{
     private LineGraphSeries<DataPoint> mSeries1;
     private double graph2LastValue = 5d;
-    Button btnGoogle, btnFacebook, btnTwitter;
     Context ctx = null;
     TextView BMI;
     double bmi, RoutineOne, RoutineTwo, RoutineThree, RoutineFour, RoutineFive;
+
+    CallbackManager callbackManager;
+    ShareDialog shareDialog;
+    Button shareButton;
+
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        FacebookSdk.sdkInitialize(getContext());
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.tracking, container, false);
+
 
         GraphView graph = (GraphView) view.findViewById(R.id.graph);
 
@@ -105,6 +121,38 @@ public class Tracking extends Fragment implements View.OnClickListener{
         mSeries1.setDataPointsRadius(5);
         mSeries1.setThickness(3);
 
+        shareButton = (Button) view.findViewById(R.id.btnFacebook);
+        shareDialog = new ShareDialog(this);
+        callbackManager = CallbackManager.Factory.create();
+        shareDialog.registerCallback(callbackManager, new
+
+                FacebookCallback<Sharer.Result>() {
+                    @Override
+                    public void onSuccess(Sharer.Result result) {}
+
+                    @Override
+                    public void onCancel() {}
+
+                    @Override
+                    public void onError(FacebookException error) {}
+                });
+
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ShareDialog.canShow(ShareLinkContent.class)) {
+                    ShareLinkContent linkContent = new ShareLinkContent.Builder()
+                            .setContentTitle("Fitness Progress!")
+                            .setContentDescription("Over my past five workouts I have burned " +
+                                    String.format("%.2f", RoutineOne + RoutineTwo + RoutineThree + RoutineFour + RoutineFive)
+                                    + " calories! Im working hard to improve my fitness and so can you!")
+                            .setContentUrl(Uri.parse("http://jakekoza13.wix.com/swoopflex"))
+                            .build();
+
+                    shareDialog.show(linkContent);
+                }
+            }});
+
         return view;
     }
 
@@ -112,4 +160,12 @@ public class Tracking extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
 
     }
+
+    @Override
+    public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+
 }
