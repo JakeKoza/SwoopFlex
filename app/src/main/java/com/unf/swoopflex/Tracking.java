@@ -33,6 +33,7 @@ import java.text.NumberFormat;
  * Created by Jake on 1/21/16.
  */
 public class Tracking extends Fragment implements View.OnClickListener{
+    Globals g = Globals.getInstance();
     private LineGraphSeries<DataPoint> mSeries1;
     private double graph2LastValue = 5d;
     Context ctx = null;
@@ -51,6 +52,7 @@ public class Tracking extends Fragment implements View.OnClickListener{
         FacebookSdk.sdkInitialize(getContext());
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.tracking, container, false);
+        g.setFeature(4);
 
         g.setFeature(4);
 
