@@ -20,12 +20,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Ricky on 2/28/2016.
+ * Class used to connect to the Database via HTTP
  */
 public class HttpConnect {
 
-    HttpURLConnection HttpCon = null;
-    BufferedReader reader = null;
+    private HttpURLConnection HttpCon = null;
+    private BufferedReader reader = null;
 
    /** Used for QRcode
     * connects to jsonGetWorkouts.php and passes var data as Id
@@ -137,9 +137,11 @@ public class HttpConnect {
         return null;
     }
 
-    /**Used for Generate Workout Routine
-     *
-     *
+    /**
+     * Used to generate a workout routine based on the users inputs of workType and workTime
+     * @param workType
+     * @param workTime
+     * @return
      */
     public String GetWorkoutRoutine(String workType, String workTime){
 
@@ -192,6 +194,12 @@ public class HttpConnect {
         return null;
     }
 
+    /**
+     * Used to search the database based on workType and workTime
+     * @param workType
+     * @param workTime
+     * @return
+     */
     public String searchWorkout(String workType, String workTime){
 
         try{
@@ -243,37 +251,11 @@ public class HttpConnect {
         return null;
     }
 
-    public String[][] jsonWorkoutStringArrayParser(String result){
-
-        try {
-
-            JSONArray parentArray = new JSONArray(result);
-
-            String[][] dataArray = new String[parentArray.length()][7];
-
-            for(int i = 0; i < parentArray.length(); i++) {
-
-                JSONObject finalObject = parentArray.getJSONObject(i);
-
-                dataArray[i][0] = finalObject.getString("work_ID");
-                dataArray[i][1] = finalObject.getString("work_Name");
-                dataArray[i][2] = finalObject.getString("work_Type");
-                dataArray[i][3] = finalObject.getString("work_Time");
-                dataArray[i][4] = finalObject.getString("work_Descrip");
-                dataArray[i][5] = finalObject.getString("work_Video");
-                dataArray[i][6] = finalObject.getString("equip_ID");
-
-            }
-
-            return dataArray;
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
+    /**
+     * Used to format data returned from the database
+     * @param result
+     * @return
+     */
     public List<WorkoutModel> modelWorkoutArrayParser(String result){
 
         try {

@@ -18,16 +18,14 @@ import com.unf.swoopflex.models.WorkoutModel;
 import java.util.List;
 
 /**
- * Created by Jake on 1/21/16.
+ * Class used to display a random workout pulled from the database
  */
 public class RandomWorkout extends Fragment {
 
-    TextView work_Name = null;
-    TextView work_Descrip = null;
-    TextView link;
-    ImageView equipImage;
-    Globals g = Globals.getInstance();
-    public List<WorkoutModel> workoutModelList = g.getWorkoutModelList();
+    private TextView work_Name, work_Descrip, link;
+    private ImageView equipImage;
+    private Globals g = Globals.getInstance();
+    private List<WorkoutModel> workoutModelList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,8 +80,6 @@ public class RandomWorkout extends Fragment {
 
             //Used to load Image from DB
             ImageLoader.getInstance().displayImage("http://73.35.6.103/images/"+workoutModelList.get(0).getEquip_ID()+"-min.JPG", equipImage); // Default options will be used
-            //Place Holder until we get more images
-            //ImageLoader.getInstance().displayImage("http://73.35.6.103/images/2-min.JPG", equipImage); // Default options will be used
 
         }
 

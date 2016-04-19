@@ -16,22 +16,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Jake on 1/21/16.
+ * Class used to Generate Workout Routines by workout Type and Time
  */
 public class GenerateWorkout extends Fragment {
 
-    Globals g = Globals.getInstance();
-    public List<WorkoutModel> workoutModelList = new ArrayList<>();
-    Button genButton;
-    Spinner genType;
-    Spinner genTime;
-    String type, time;
+    private Globals g = Globals.getInstance();
+    private  List<WorkoutModel> workoutModelList = new ArrayList<>();
+    private Button genButton;
+    private Spinner genType, genTime;
+    private String type, time;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.generate_workout, container, false);
+
+        g.setFeature(0);
 
         genButton = (Button)view.findViewById(R.id.generate_workout);
         genType = (Spinner)view.findViewById(R.id.workTypeSpinner);
@@ -75,20 +77,6 @@ public class GenerateWorkout extends Fragment {
             workoutModelList = http.modelWorkoutArrayParser(result);
 
             g.setWorkoutModelList(workoutModelList);
-
-            g.setFeature(0);
-
-            Fragment fragment = null;
-
-            Class fragmentClass = null;
-
-            fragmentClass = DisplayWorkoutListView.class;
-
-            try {
-                fragment = (Fragment) fragmentClass.newInstance();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
 
             DisplayWorkoutListView workoutListView = new DisplayWorkoutListView();
 

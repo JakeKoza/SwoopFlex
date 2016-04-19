@@ -24,32 +24,21 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- * Created by Ricky on 3/16/2016.
+ * Class used to display workouts generated for a routine
+ * Has a timer and adds the total time at the end of the routine to the local DB
  */
 public class DisplayRoutineWorkout extends Fragment {
 
-    Context ctx = null;
-    TextView work_Name = null;
-    TextView work_Descrip = null;
-    TextView link = null;
-    ImageView equipImage;
-    Button prevButton, nextButton, timeButton, resetButton;
-    double track_time;
-    double track_cal;
-    double track_date;
-    Globals g = Globals.getInstance();
-    public List<WorkoutModel> workoutList = g.getWorkoutModelList();
-    TextView time;
-    long starttime = 0L;
-    long timeInMilliseconds = 0L;
-    long timeSwapBuff = 0L;
-    long updatedtime = 0L;
-    int t = 1;
-    int secs = 0;
-    int mins = 0;
-    int milliseconds = 0;
-    Handler handler = new Handler();
-    Integer weight;
+    private Context ctx = null;
+    private TextView work_Name, work_Descrip, link, time;
+    private ImageView equipImage;
+    private Button prevButton, nextButton, timeButton, resetButton;
+    private double track_time, track_cal, track_date;
+    private Globals g = Globals.getInstance();
+    private List<WorkoutModel> workoutList = g.getWorkoutModelList();
+    private long starttime = 0L, timeInMilliseconds = 0L, timeSwapBuff = 0L, updatedtime = 0L;
+    private int t = 1, secs = 0, mins = 0, milliseconds = 0, weight;
+    private Handler handler = new Handler();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -85,7 +74,6 @@ public class DisplayRoutineWorkout extends Fragment {
         //Used to load image from database
         ImageLoader.getInstance().displayImage("http://73.35.6.103/images/" + workoutList.get(g.getPosition()).getEquip_ID() + "-min.JPG", equipImage); // Default options will be used
 
-
         work_Name.setText(workoutList.get(g.getPosition()).getWork_Name());
         work_Descrip.setText(workoutList.get(g.getPosition()).getWork_Descrip());
         //link.setText(Html.fromHtml("<a href=\" + workoutList.get(g.getPosition()).getWork_Video() + "\>" YouTube</a>");
@@ -93,6 +81,9 @@ public class DisplayRoutineWorkout extends Fragment {
         link.setClickable(true);
         link.setMovementMethod(LinkMovementMethod.getInstance());
 
+        /**
+         * Used to start and stop the timer
+         */
         timeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,7 +106,9 @@ public class DisplayRoutineWorkout extends Fragment {
             }
         });
 
-        //Used to reset timer
+        /**
+         * Used to reset the Timer
+         */
         resetButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -135,6 +128,10 @@ public class DisplayRoutineWorkout extends Fragment {
             }
         });
 
+        /**
+         * Used to load the next wrokout in the list
+         * If at the end of the list then get the totalTime and save it to the local database
+         */
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -181,18 +178,6 @@ public class DisplayRoutineWorkout extends Fragment {
                     Toast.makeText(getActivity(), "Tracking Data Saved", Toast.LENGTH_SHORT).show();
 
                     //Code below is used to change fragments.
-                    Fragment fragment = null;
-
-                    Class fragmentClass = null;
-
-                    fragmentClass = GenerateWorkout.class;
-
-                    try {
-                        fragment = (Fragment) fragmentClass.newInstance();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
                     GenerateWorkout generateWorkout = new GenerateWorkout();
 
                     android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
@@ -209,18 +194,6 @@ public class DisplayRoutineWorkout extends Fragment {
                     g.setPosition(g.getPosition() + 1);
 
                     //Code below is used to change fragments.
-                    Fragment fragment = null;
-
-                    Class fragmentClass = null;
-
-                    fragmentClass = DisplayRoutineWorkout.class;
-
-                    try {
-                        fragment = (Fragment) fragmentClass.newInstance();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
                     DisplayRoutineWorkout workoutRoutineDisplay = new DisplayRoutineWorkout();
 
                     android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
@@ -234,6 +207,10 @@ public class DisplayRoutineWorkout extends Fragment {
             }
         });
 
+        /**
+         * Used to load the previous workout in the list
+         * Disabled if on the first workout in the list
+         */
         prevButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -252,18 +229,6 @@ public class DisplayRoutineWorkout extends Fragment {
                 g.setPosition(g.getPosition() - 1);
 
                 //Code below is used to change fragments.
-                Fragment fragment = null;
-
-                Class fragmentClass = null;
-
-                fragmentClass = DisplayRoutineWorkout.class;
-
-                try {
-                    fragment = (Fragment) fragmentClass.newInstance();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
                 DisplayRoutineWorkout workoutRoutineDisplay = new DisplayRoutineWorkout();
 
                 android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
@@ -281,6 +246,9 @@ public class DisplayRoutineWorkout extends Fragment {
         return view;
     }
 
+    /**
+     * Used to update the total workout time
+     */
     public Runnable updateTimer = new Runnable() {
         public void run() {
             timeInMilliseconds = SystemClock.uptimeMillis() - starttime;

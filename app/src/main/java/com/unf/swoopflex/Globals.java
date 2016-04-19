@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Ricky on 3/15/2016.
+ * Class used to store global vars
  */
 public class Globals extends Application{
 
@@ -34,8 +34,11 @@ public class Globals extends Application{
         this.workoutModelList = workoutModelList;
     }
 
-    //Returns length of ListArray
-    //Used in displayRoutineWorkout for next and previous buttons
+    /**
+     * Returns length of ListArray
+     * Used in displayRoutineWorkout for next and previous buttons
+     * @return
+     */
     public Integer getWorkoutModelListLength(){
 
         return workoutModelList.size();

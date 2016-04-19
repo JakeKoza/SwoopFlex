@@ -3,7 +3,7 @@ package com.unf.swoopflex;
 import android.provider.BaseColumns;
 
 /**
- * Created by Ricky on 2/7/2016.
+ * Class holds info about the SQLite local Database
  */
 public class SQLiteData {
 
@@ -12,6 +12,9 @@ public class SQLiteData {
 
     }
 
+    /**
+     * Used to hold User Table info
+     */
     public static abstract class SQLiteUserTableInfo implements BaseColumns{
 
         public static final String DATABASE_NAME = "SQLiteDB";
@@ -25,6 +28,9 @@ public class SQLiteData {
 
     }
 
+    /**
+     * Used to hold Tracking table info
+     */
     public static abstract class SQLiteTrackingTableInfo implements BaseColumns{
 
         public static final String DATABASE_NAME = "SQLiteDB";

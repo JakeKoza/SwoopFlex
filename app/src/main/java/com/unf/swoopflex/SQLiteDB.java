@@ -8,16 +8,18 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 /**
- * Created by Ricky on 2/7/2016.
+ * Class used to communicate with SQLite local Database
  */
 public class SQLiteDB extends SQLiteOpenHelper {
-    public static final int database_version = 1;
-    //String used to create DB
-    public String CREATE_QUERY_User = "CREATE TABLE "+ SQLiteData.SQLiteUserTableInfo.TABLE_NAME +"( "+ SQLiteData.SQLiteUserTableInfo.USER_HEIGHT +
+    private static final int database_version = 1;
+
+    //String used to create User Table
+    private String CREATE_QUERY_User = "CREATE TABLE "+ SQLiteData.SQLiteUserTableInfo.TABLE_NAME +"( "+ SQLiteData.SQLiteUserTableInfo.USER_HEIGHT +
             " INTEGER, "+ SQLiteData.SQLiteUserTableInfo.USER_WEIGHT +" INTEGER, "+ SQLiteData.SQLiteUserTableInfo.USER_AGE +" INTEGER, "+
             SQLiteData.SQLiteUserTableInfo.USER_GENDER +" INTEGER, "+ SQLiteData.SQLiteUserTableInfo.USER_BMI +" REAL);";
 
-    public String CREATE_QUERY_Tracking =  "CREATE TABLE "+ SQLiteData.SQLiteTrackingTableInfo.TABLE_NAME +"( " + SQLiteData.SQLiteTrackingTableInfo.Track_Time +" REAL, "+ SQLiteData.SQLiteTrackingTableInfo.Track_Date +" REAL, "+
+    //String used to create Tracking Table
+    private String CREATE_QUERY_Tracking =  "CREATE TABLE "+ SQLiteData.SQLiteTrackingTableInfo.TABLE_NAME +"( " + SQLiteData.SQLiteTrackingTableInfo.Track_Time +" REAL, "+ SQLiteData.SQLiteTrackingTableInfo.Track_Date +" REAL, "+
              SQLiteData.SQLiteTrackingTableInfo.Track_Cal +" REAL);";
 
     public SQLiteDB(Context context) {
@@ -38,8 +40,17 @@ public class SQLiteDB extends SQLiteOpenHelper {
 
     }
 
-    //Method used to insert data into local DB
-    //Only supports storing 1 user
+
+    /**
+     * Method used to insert data into local DB User Table
+     * Only supports storing 1 user
+     * @param db
+     * @param height
+     * @param weight
+     * @param age
+     * @param gender
+     * @param bmi
+     */
     public void SQLiteUserInsert(SQLiteDB db, int height, int weight, int age, int gender, double bmi){
 
         SQLiteDatabase SQ = db.getWritableDatabase();
@@ -61,8 +72,14 @@ public class SQLiteDB extends SQLiteOpenHelper {
 
     }
 
-    //Method used to insert data into local DB
-    //Only supports storing 1 user
+
+    /**
+     * Method used to insert data into local DB Tracking Table
+     * @param db
+     * @param track_time
+     * @param track_date
+     * @param track_cal
+     */
     public void SQLiteTrackingInsert(SQLiteDB db, double track_time, double track_date, double track_cal){
 
         SQLiteDatabase SQ = db.getWritableDatabase();
@@ -78,7 +95,11 @@ public class SQLiteDB extends SQLiteOpenHelper {
 
     }
 
-    //Method for retrieving tracking Information from local database
+    /**
+     * Method for retrieving tracking Information from local database
+     * @param db
+     * @return
+     */
     public Cursor SQLiteTrackingData(SQLiteDB db){
 
         SQLiteDatabase SQ = db.getReadableDatabase();
@@ -90,7 +111,11 @@ public class SQLiteDB extends SQLiteOpenHelper {
         return CR;
     }
 
-    //Method for retrieving tracking Information from local database
+    /**
+     * Method used to retrieve Cal tracking data from local database
+     * @param db
+     * @return
+     */
     public Cursor SQLiteTrackingCal(SQLiteDB db){
 
         SQLiteDatabase SQ = db.getReadableDatabase();
@@ -102,7 +127,11 @@ public class SQLiteDB extends SQLiteOpenHelper {
         return CR;
     }
 
-    //Method for retrieving User Information from local database
+    /**
+     * Method for retrieving User Information from local database
+     * @param db
+     * @return
+     */
     public Cursor SQLiteUserData(SQLiteDB db){
 
         SQLiteDatabase SQ = db.getReadableDatabase();
@@ -115,7 +144,11 @@ public class SQLiteDB extends SQLiteOpenHelper {
         return CR;
     }
 
-    //Method for retrieving BMI from local database
+    /**
+     * Method for retrieving BMI from local database
+     * @param db
+     * @return
+     */
     public Cursor SQLiteUserGetBMI(SQLiteDB db){
 
         SQLiteDatabase SQ = db.getReadableDatabase();
@@ -127,7 +160,11 @@ public class SQLiteDB extends SQLiteOpenHelper {
         return CR;
     }
 
-    //Method for retrieving Weight from local database
+    /**
+     * Method for retrieving Weight from local database
+     * @param db
+     * @return
+     */
     public Cursor SQLiteUserGetWeight (SQLiteDB db){
 
         SQLiteDatabase SQ = db.getReadableDatabase();
@@ -139,7 +176,11 @@ public class SQLiteDB extends SQLiteOpenHelper {
         return CR;
     }
 
-    //Method used to check to see if the DB exist
+    /**
+     * Method used to check to see if the DB exist
+     * @param db
+     * @return
+     */
     public boolean SQLiteCheckDB(SQLiteDB db){
 
         SQLiteDatabase SQ = db.getReadableDatabase();

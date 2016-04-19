@@ -12,26 +12,28 @@ import android.widget.Spinner;
 
 import com.unf.swoopflex.models.WorkoutModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Jake on 1/21/16.
+ * Class used to search for workouts by body type and time
  */
 public class SearchWorkout extends Fragment {
 
-    public List<WorkoutModel> workoutModelList = new ArrayList<>();
-    Button searchButton;
-    Spinner searchType;
-    Spinner searchTime;
-    String type, time;
-    Globals g = Globals.getInstance();
+    private List<WorkoutModel> workoutModelList;
+    private Button searchButton;
+    private Spinner searchType, searchTime;
+    private String type, time;
+    private Globals g = Globals.getInstance();
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.search_workout, container, false);
+
+        //Sets global feature to current feature
+        g.setFeature(2);
 
         searchButton = (Button)view.findViewById(R.id.search_workout);
         searchType = (Spinner)view.findViewById(R.id.searchTypeSpinner);
@@ -45,8 +47,6 @@ public class SearchWorkout extends Fragment {
                 type = searchType.getSelectedItem().toString();
 
                 new JsonTask().execute();
-
-                //Toast.makeText(getActivity(), time + type, Toast.LENGTH_LONG).show();
             }
         });
 
@@ -78,22 +78,7 @@ public class SearchWorkout extends Fragment {
             //Sets global arraylist to list returned from DB
             g.setWorkoutModelList(workoutModelList);
 
-            //Sets global feature to current feature
-            g.setFeature(2);
-
             //Code below is used to change fragments
-            Fragment fragment = null;
-
-            Class fragmentClass = null;
-
-            fragmentClass = DisplayWorkoutListView.class;
-
-            try {
-                fragment = (Fragment) fragmentClass.newInstance();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
             DisplayWorkoutListView workoutListView = new DisplayWorkoutListView();
 
             android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
@@ -104,7 +89,6 @@ public class SearchWorkout extends Fragment {
 
             fragmentTransaction.commit();
 
-           // Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
         }
 
     }

@@ -16,16 +16,14 @@ import com.unf.swoopflex.models.WorkoutModel;
 import java.util.List;
 
 /**
- * Created by Ricky on 3/16/2016.
+ * Class used to display workouts for search and QRcode scan
  */
 public class DisplayWorkout extends Fragment {
 
-    TextView work_Name = null;
-    TextView work_Descrip = null;
-    TextView link;
-    ImageView equipImage;
-    Globals g = Globals.getInstance();
-    public List<WorkoutModel> workoutList = g.getWorkoutModelList();
+    private TextView work_Name, work_Descrip, link;
+    private ImageView equipImage;
+    private Globals g = Globals.getInstance();
+    private List<WorkoutModel> workoutList = g.getWorkoutModelList();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -19,14 +19,13 @@ import com.unf.swoopflex.models.WorkoutModel;
 import java.util.List;
 
 /**
- * Created by Ricky on 3/15/2016.
+ * Class used to display workouts as a list view
  */
 public class DisplayWorkoutListView extends Fragment {
 
-    Globals g = Globals.getInstance();
-    public List<WorkoutModel> workoutList = g.getWorkoutModelList();
-    ListView workoutListView;
-    Integer feature;
+    private Globals g = Globals.getInstance();
+    private List<WorkoutModel> workoutList = g.getWorkoutModelList();
+    private ListView workoutListView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,26 +56,12 @@ public class DisplayWorkoutListView extends Fragment {
                 //sets global position to clicked workout
                 g.setPosition(position);
 
-                //Gets current feature
-                feature = g.getFeature();
-
-                //Checks to see what feature is being used. If 0/genRoutine then load DisplayRoutineWorkout else DisplayWorkout
+                //Checks to see what feature is being used. If 0 then load DisplayRoutineWorkout else DisplayWorkout
                 //DisplayRoutineWorkout is used only for generating routines feature
-                //DisplayWorkout is used for all other features
-                if(feature == 0 ) {
+                //DisplayWorkout is used for search and QRcode
+                if(g.getFeature() == 0 ) {
 
                     //Code below is used to change fragments.
-                    Fragment fragment = null;
-
-                    Class fragmentClass = null;
-
-                    fragmentClass = DisplayRoutineWorkout.class;
-
-                    try {
-                        fragment = (Fragment) fragmentClass.newInstance();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
 
                     DisplayRoutineWorkout workoutRoutineDisplay = new DisplayRoutineWorkout();
 
@@ -91,17 +76,6 @@ public class DisplayWorkoutListView extends Fragment {
                 else{
 
                     //Code below is used to change fragments.
-                    Fragment fragment = null;
-
-                    Class fragmentClass = null;
-
-                    fragmentClass = DisplayWorkout.class;
-
-                    try {
-                        fragment = (Fragment) fragmentClass.newInstance();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
 
                     DisplayWorkout workoutDisplay = new DisplayWorkout();
 

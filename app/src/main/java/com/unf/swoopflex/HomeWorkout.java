@@ -16,20 +16,18 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 /**
- * Created by Ricky on 1/31/16.
+ * Class used to display and take in user information
  */
 public class HomeWorkout extends Fragment{
 
-    Context ctx = null;
-    Button btn;
-    Spinner Height_Feet;
-    Spinner Height_Inch;
-    EditText Weight;
-    Spinner Age;
-    RadioGroup Gender;
-    int user_height, user_feet, user_inch, user_weight, user_age, user_gender;
-    double temp_height, temp_weight;
-    double bmi;
+    private Context ctx = null;
+    private Button btn;
+    private Spinner Height_Feet, Height_Inch, Age;
+    private EditText Weight;
+    private RadioGroup Gender;
+    private int user_height, user_feet, user_inch, user_weight, user_age, user_gender;
+    private double temp_height, temp_weight;
+    private double bmi;
 
 
     @Override
@@ -72,7 +70,9 @@ public class HomeWorkout extends Fragment{
             }
         }
 
-        //When clicked Saves entered information to local DB
+        /**
+         * When clicked Saves entered information to local DB
+         */
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -14,18 +14,20 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.unf.swoopflex.models.WorkoutModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Jake on 1/21/16.
+ * Class used for QRcode Scanning
+ * QRcodes are associated with the Primary key of the equipment
+ * Will return all workouts related to the scanned equipment
  */
 public class QRCode extends Fragment {
 
     private String toast;
-    String id;
-    Globals g = Globals.getInstance();
-    public List<WorkoutModel> workoutModelList = new ArrayList<>();
+    private String id;
+    private Globals g = Globals.getInstance();
+    private List<WorkoutModel> workoutModelList;
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -92,18 +94,6 @@ public class QRCode extends Fragment {
             workoutModelList = http.modelWorkoutArrayParser(result);
 
             g.setWorkoutModelList(workoutModelList);
-
-            Fragment fragment = null;
-
-            Class fragmentClass = null;
-
-            fragmentClass = DisplayWorkoutListView.class;
-
-            try {
-                fragment = (Fragment) fragmentClass.newInstance();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
 
             DisplayWorkoutListView workoutListView = new DisplayWorkoutListView();
 
