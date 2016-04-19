@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
 import com.facebook.share.Sharer;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
@@ -26,8 +27,6 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-
-import com.facebook.FacebookSdk;
 
 
 /**
@@ -43,7 +42,7 @@ public class Tracking extends Fragment implements View.OnClickListener{
     CallbackManager callbackManager;
     ShareDialog shareDialog;
     Button shareButton;
-
+    Globals g = Globals.getInstance();
 
 
     @Override
@@ -53,6 +52,7 @@ public class Tracking extends Fragment implements View.OnClickListener{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.tracking, container, false);
 
+        g.setFeature(4);
 
         GraphView graph = (GraphView) view.findViewById(R.id.graph);
 

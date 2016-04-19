@@ -34,7 +34,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
     compile 'com.jjoe64:graphview:4.0.1'
-    compile group: 'org.apache.httpcomponents' , name: 'httpclient-android' , version: '4.3.5.1'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     compile 'com.facebook.android:facebook-android-sdk:4.+'
 }
