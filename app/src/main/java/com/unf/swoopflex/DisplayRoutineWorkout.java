@@ -153,6 +153,8 @@ public class DisplayRoutineWorkout extends Fragment {
 
                     track_time = g.getTotalTime();
 
+                    g.setTotalTime(0);
+
                     Calendar calendar = Calendar.getInstance();
 
                     track_date = calendar.getTimeInMillis();

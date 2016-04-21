@@ -42,7 +42,7 @@ public class Tracking extends Fragment implements View.OnClickListener{
 
     private CallbackManager callbackManager;
     private ShareDialog shareDialog;
-    private Button shareButton;
+    private Button shareButton, twitterButton, googleButton;
     private Globals g = Globals.getInstance();
 
 
@@ -121,6 +121,29 @@ public class Tracking extends Fragment implements View.OnClickListener{
         mSeries1.setDrawDataPoints(true);
         mSeries1.setDataPointsRadius(5);
         mSeries1.setThickness(3);
+
+        twitterButton = (Button) view.findViewById(R.id.btnTwitter);
+        googleButton = (Button) view.findViewById(R.id.btnGooglePlus);
+
+        twitterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = "https://twitter.com/";
+
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }});
+
+        googleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = "https://plus.google.com/";
+
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }});
 
         shareButton = (Button) view.findViewById(R.id.btnFacebook);
         shareDialog = new ShareDialog(this);
