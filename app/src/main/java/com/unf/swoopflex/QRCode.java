@@ -89,24 +89,39 @@ public class QRCode extends Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            g.setFeature(3);
+            if(result.equals("null")){
 
-            workoutModelList = http.modelWorkoutArrayParser(result);
+               Toast.makeText(getActivity(), "Scan Failed Please Try Again", Toast.LENGTH_LONG).show();
 
-            g.setWorkoutModelList(workoutModelList);
+               QRCode qrCode = new QRCode();
 
-            DisplayWorkoutListView workoutListView = new DisplayWorkoutListView();
+               android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
 
-            android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+               fragmentTransaction.replace(R.id.flContent, qrCode);
 
-            fragmentTransaction.replace(R.id.flContent, workoutListView);
+               fragmentTransaction.addToBackStack(null);
 
-            fragmentTransaction.addToBackStack(null);
+               fragmentTransaction.commit();
 
-            fragmentTransaction.commit();
+           }else {
+
+                workoutModelList = http.modelWorkoutArrayParser(result);
+
+               g.setWorkoutModelList(workoutModelList);
+
+               DisplayWorkoutListView workoutListView = new DisplayWorkoutListView();
+
+               android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+
+               fragmentTransaction.replace(R.id.flContent, workoutListView);
+
+               fragmentTransaction.addToBackStack(null);
+
+               fragmentTransaction.commit();
+           }
         }
 
-            //Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
+
         }
 
     }
